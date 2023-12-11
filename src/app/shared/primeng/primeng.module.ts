@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
-
+import { ButtonModule } from 'primeng/button';
 @NgModule({
   declarations: [],
   imports: [
@@ -10,6 +10,7 @@ import { TableModule } from 'primeng/table';
   ], exports : [
     InputTextModule,
     TableModule,
+    ButtonModule
   ]
 
 

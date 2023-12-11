@@ -12,15 +12,8 @@
           <span class="p-float-label">
             <span class="p-float-label p-input-icon-right">
               <i class="pi pi-search"></i>
-              <input
-                type="text"
-                id="inputgroup"
-                name="paramentro"
-                pInputText
-                [(ngModel)]="produtofiltro.parametro"
-                class="p-inputtext"
-                placeholder="id, nome do produto, código ean 13"
-              />
+              <input type="text" id="inputgroup" name="paramentro" pInputText [(ngModel)]="produtofiltro.parametro"
+                class="p-inputtext" placeholder="id, nome do produto, código ean 13" />
               <label for="inputgroup">Pesquisar</label>
             </span>
           </span>
@@ -30,69 +23,79 @@
     <div class="grid">
       <div class="col-12 tabela">
 
-        <p-table [value]="produtos" dataKey="id" >
+        <p-table [value]="produtos" dataKey="id" styleClass="p-datatable-gridlines p-datatable-sm p-datatable-customer"
+          [lazy]="true" selectionMode="single" (onLazyLoad)="aoMudarPagina($event)" [paginator]="true"
+          [totalRecords]="totalRegistros" [rows]="produtofiltro.itensPorPagina">
+
           <ng-template pTemplate="header">
-              <tr>
-                  <th style="width: 5rem"></th>
-                  <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+            <tr>
+              <th></th>
+              <th>Id </th>
+              <th>Nome </th>
 
-                  <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-                  <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
-                  <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
-                  <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
-              </tr>
+              <th>Estoque <p-sortIcon field="price"></p-sortIcon></th>
+              <th>Subgrupo</th>
+              <th>Marca </th>
+
+              <th>Ações</th>
+            </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-product let-expanded="expanded">
-              <tr>
-                  <td>
-                      <button type="button" pButton pRipple [pRowToggler]="product" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-                  </td>
-                  <td>{{ product.name }}</td>
+          <ng-template pTemplate="body" let-produto let-expanded="expanded">
+            <tr [pSelectableRow]="produto">
+              <td>
+                <button type="button" pButton pRipple [pRowToggler]="produto"
+                  class="p-button-text p-button-rounded p-button-plain"
+                  [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+              </td>
 
-                  <td>{{ product.price | currency: 'BRL' }}</td>
-                  <td>{{ product.category }}</td>
+              <td>{{ produto.id }}</td>
+              <td>{{ produto.nomeProduto }}</td>
 
-
-              </tr>
+              <td>{{ produto.estoqueproduto  }}</td>
+              <td>{{ produto.nomeSubgrupo }}</td>
+              <td>{{ produto.marcaProduto }}</td>
+             <td></td>
+            </tr>
           </ng-template>
-          <ng-template pTemplate="rowexpansion" let-product>
-              <tr>
-                  <td colspan="7">
-                      <div class="p-3">
-                          <p-table [value]="product.orders" dataKey="id">
-                              <ng-template pTemplate="header">
-                                  <tr>
-                                      <th pSortableColumn="id">Id <p-sortIcon field="price"></p-sortIcon></th>
-                                      <th pSortableColumn="customer">Customer <p-sortIcon field="customer"></p-sortIcon></th>
-                                      <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
-                                      <th pSortableColumn="amount">Amount <p-sortIcon field="amount"></p-sortIcon></th>
+          <ng-template pTemplate="rowexpansion" let-produto>
+            <tr>
+              <td colspan="7">
+                <div class="p-3">
+                  <p-table [value]="produto.proutos_skus" dataKey="id">
+                    <ng-template pTemplate="header">
+            <tr>
 
-                                      <th style="width: 4rem"></th>
-                                  </tr>
-                              </ng-template>
-                              <ng-template pTemplate="body" let-produtoSku>
-                                  <tr>
-                                      <td>{{ produtoSku.id }}</td>
-                                      <td>{{ produtoSku.nomeProduto }}</td>
-                                      <td>{{ produtoSku.id }}</td>
-                                      <td>{{ produtoSku.pr | currency: 'USD' }}</td>
+              <th>Id </th>
+              <th>caracteristica </th>
+              <th>Código Ean 13 </th>
+              <th>Preço de Venda</th>
+              <th>Unidade de Medida</th>
 
-                                      <td><p-button type="button" icon="pi pi-plus"></p-button></td>
-                                  </tr>
-                              </ng-template>
-                              <ng-template pTemplate="emptymessage">
-                                  <tr>
-                                      <td colspan="6">There are no order for this product yet.</td>
-                                  </tr>
-                              </ng-template>
-                          </p-table>
-                      </div>
-                  </td>
-              </tr>
+            </tr>
           </ng-template>
+          <ng-template pTemplate="body" let-produtoSku>
+            <tr>
+
+              <td>{{ produtoSku.id }}</td>
+              <td>{{ produtoSku.caracteristica }}</td>
+              <td>{{ produtoSku.codigoEan13Sku }}</td>
+              <td>{{ produtoSku.valordeVenda | currency: 'BRL' }}</td>
+              <td>{{ produtoSku.medida }}</td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="6">Produto sem varição</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      </td>
+      </tr>
+      </ng-template>
       </p-table>
 
-      </div>
     </div>
   </div>
+</div>
 </div>
