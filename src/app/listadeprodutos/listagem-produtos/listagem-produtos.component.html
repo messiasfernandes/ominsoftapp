@@ -29,7 +29,7 @@
 
           <ng-template pTemplate="header">
             <tr>
-              <th></th>
+              <th style="text-align: center;"> Expandir</th>
               <th>Id </th>
               <th>Nome </th>
 
@@ -37,7 +37,7 @@
               <th>Subgrupo</th>
               <th>Marca </th>
 
-              <th>Ações</th>
+              <th style="text-align: center;" >Ações</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-produto let-expanded="expanded">
@@ -54,7 +54,23 @@
               <td>{{ produto.estoqueproduto  }}</td>
               <td>{{ produto.nomeSubgrupo }}</td>
               <td>{{ produto.marcaProduto }}</td>
-             <td></td>
+             <td>
+
+                <div class="flex align-items-center justify-content-center">
+                  <a>
+
+
+                  <button pButton pRipple icon="fa-solid fa-pen-to-square" type="button"  pTooltip="Eidtar" tooltipPosition="top"
+                    class="  p-button-primary mr2 p-button-text "></button>
+
+                  </a>
+                    <p-button  icon="fa-solid fa-trash "  type="button" pTooltip="Excluir" styleClass="p-button-mr-2 p-button-danger p-button-text" tooltiPosition="top">
+
+                    </p-button>
+                </div>
+
+              </td>
+
             </tr>
           </ng-template>
           <ng-template pTemplate="rowexpansion" let-produto>
