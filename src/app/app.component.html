@@ -1,2 +1,12 @@
+<div class="container2 "  [class.menu-open]="menuOpen">
+  <div class="sidebar" *ngIf="menuOpen" >
 
-<router-outlet></router-outlet>
+    <p-panelMenu   [model]="items"></p-panelMenu>
+  </div>
+  <div class="content">
+    <button pButton (click)="toggleMenu()">Toggle Menu</button>
+    <!-- Conteúdo principal da sua aplicação aqui -->
+    <router-outlet></router-outlet>
+  </div>
+</div>
+

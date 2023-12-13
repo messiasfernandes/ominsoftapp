@@ -33,7 +33,7 @@
               <th>Id </th>
               <th>Nome </th>
 
-              <th>Estoque <p-sortIcon field="price"></p-sortIcon></th>
+              <th style="text-align: center;">Estoque </th>
               <th>Subgrupo</th>
               <th>Marca </th>
 
@@ -51,7 +51,7 @@
               <td>{{ produto.id }}</td>
               <td>{{ produto.nomeProduto }}</td>
 
-              <td>{{ produto.estoqueproduto  }}</td>
+              <td style="text-align: center;">{{ produto.estoqueproduto  }}</td>
               <td>{{ produto.nomeSubgrupo }}</td>
               <td>{{ produto.marcaProduto }}</td>
              <td>
@@ -59,11 +59,11 @@
               <div class=" flex align-items-center justify-content-center "   >
                 <a>
 
-                  <button pButton pRipple icon="fa-solid fa-pen-to-square"  pTooltip="Editar" tooltipPosition="top"
+                  <button pButton pRipple icon="fa-solid fa-pen"  pTooltip="Editar" tooltipPosition="top"
                     class="p-button-primary mr-2 p-button-text"  type="button"></button>
                 </a>
                 <button pButton pRipple icon="fa-solid fa-trash " type="button" pTooltip="Excluir" tooltipPosition="top"
-                      class=" p-button-danger mr2 p-button-text p-button-tex"></button>
+                      class=" p-button-danger mr2 p-button-text "></button>
               </div>
 
             </td>
@@ -82,18 +82,18 @@
               <th>Id </th>
               <th>caracteristica </th>
               <th>Código Ean 13 </th>
-              <th>Preço de Venda</th>
+              <th style="text-align: right;" >Preço de Venda</th>
               <th>Unidade de Medida</th>
 
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-produtoSku>
-            <tr>
+            <tr [pSelectableRow]="produtoSku">
 
               <td>{{ produtoSku.id }}</td>
               <td>{{ produtoSku.caracteristica }}</td>
               <td>{{ produtoSku.codigoEan13Sku }}</td>
-              <td>{{ produtoSku.valordeVenda | currency: 'BRL' }}</td>
+              <td style="text-align: right;">{{ produtoSku.valordeVenda | currency: 'BRL' }}</td>
               <td>{{ produtoSku.medida }}</td>
             </tr>
           </ng-template>
