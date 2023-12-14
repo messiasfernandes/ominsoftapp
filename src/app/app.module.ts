@@ -11,6 +11,7 @@ import localePt from '@angular/common/locales/pt';
 import { PrimengModule } from './shared/primeng/primeng.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MenuComponent } from './shared/menu/menu.component';
 registerLocaleData(ptBr, localePt);
 
 registerLocaleData(localePt, 'pt-BR');
@@ -18,6 +19,7 @@ registerLocaleData(localePt, 'pt-BR');
   declarations: [
     AppComponent,
     ListagemProdutosComponent,
+    MenuComponent,
 
   ],
   imports: [

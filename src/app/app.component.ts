@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { MenuItem, PrimeIcons } from 'primeng/api';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ominiSoftApp';
-  items: any[];
+  items:  MenuItem[] = [];
   menuOpen = true
   constructor() {
     this.items = [
