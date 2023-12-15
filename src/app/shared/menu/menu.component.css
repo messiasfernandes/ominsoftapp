@@ -23,12 +23,14 @@
    padding: auto;
    font-size: 1.5rem ;
 
+
  }
+
 :host::ng-deep .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link .p-menuitem-text {
   color:   #3F51B5;
   font: bold;
   padding: auto;
-  margin-left: 10px;
+ margin-left: 10px;
 
 }
 .container2 {
@@ -47,3 +49,20 @@
   padding: 10px;
 }
 
+.p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link:not(.p-disabled):hover {
+  border-color: transparent;
+  background: var(--indigo-500);
+  color: var(--indigo-50);
+}
+.p-panelmenu .p-panelmenu-panel .p-menuitem .p-menuitem-link:focus {
+  background: #2196f3;
+}
+.p-panelmenu {
+  overflow: hidden;
+  transition: width 0.3s ease-in-out;
+}
+
+.menu-closed .p-panelmenu {
+  width: 0;
+  overflow: hidden;
+}

@@ -22,17 +22,22 @@
 
 
 <div class="grid">
-  <div class="col-3">
+  <div class="card flex justify-content-center">
 
     <p-sidebar [(visible)]="exibindoMenu" [showCloseIcon]="true" [baseZIndex]="10000">
+      <ng-template pTemplate="headless">
 
+        <div class="flex flex-column h-full">
 
       <h2 style="font-weight:bold ; color: black; align-content: center; font: bold;">Sistema de Gestão </h2>
 
 
 
-      <p-panelMenu *ngIf="exibindoMenu" autoDisplay="true" [model]="menu" [style]="{'width':'290px'}"></p-panelMenu>
+      <p-panelMenu *ngIf="exibindoMenu" autoDisplay="true" [model]="menu" ></p-panelMenu>
 
+        </div>
+       </ng-template>
     </p-sidebar>
-  </div>
+
+    </div>
 </div>

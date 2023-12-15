@@ -1,19 +1,34 @@
-import { Component } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem, PrimeIcons } from 'primeng/api';
+import { Sidebar } from 'primeng/sidebar';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css']
+  styleUrls: ['./menu.component.css'],
+  animations: [
+    trigger('slideInOut', [
+      state('in', style({ width: '250px' })),
+      state('out', style({ width: '0' })),
+      transition('in => out', animate('300ms ease-in-out')),
+      transition('out => in', animate('300ms ease-in-out'))
+    ])
+  ]
 })
+
 export class MenuComponent {
   exibindoMenu = false;
+  sidebarVisible: boolean = false;
+  @ViewChild('sidebarRef') sidebarRef!: Sidebar;
   constructor(private router: Router) {}
   menu: MenuItem[] = [];
   menuOpen = true
+  menuState = 'in';
   mostrarMenu() {
     this.exibindoMenu = !this.exibindoMenu;
+    this.menuState = this.menuState === 'out' ? 'in' : 'out';
   }
   closeSidebar() {
     this.exibindoMenu = !this.exibindoMenu;
@@ -39,7 +54,10 @@ export class MenuComponent {
             icon: PrimeIcons.USER_PLUS,
 
           },
+          {
+            separator: true
 
+           },
           {
             label: 'Fornecedores',
             icon: PrimeIcons.USER_MINUS,
@@ -48,13 +66,19 @@ export class MenuComponent {
             routerLinkActiveOptions: { exact: true },
 
           },
+          {
+            separator: true
 
+           },
           {
             label: 'Funicionários',
             icon: PrimeIcons.USER,
             routerLinkActiveOptions: { exact: true },
           },
+          {
+            separator: true
 
+           },
           {
             label: 'Produtos',
             icon: ' fa-solid fa-boxes-packing fa-xl"',
@@ -62,9 +86,11 @@ export class MenuComponent {
 
             command: () => this.closeSidebar(),
           },
+
         ],
 
       },
+
 
       {
         label: 'Estoque',
@@ -75,6 +101,10 @@ export class MenuComponent {
             icon: 'fa-solid fa-warehouse fa-xl',
           },
           {
+            separator: true
+
+           },
+          {
             label: 'Importar Nota fiscal',
             icon: 'fa-solid fa-file-invoice fa-xl',
             expanded: true,
@@ -82,11 +112,20 @@ export class MenuComponent {
             command: () => this.closeSidebar(),
           },
           {
+            separator: true
+
+           },
+          {
             label: 'Kits/Combos',
             icon: PrimeIcons.TICKET,
           },
+          {
+            separator: true
+
+           },
         ],
       },
+
       {
         label: 'Financeiro',
         icon: PrimeIcons.DOLLAR,
@@ -102,10 +141,18 @@ export class MenuComponent {
             // routerLink: ['/contasreceber'],
           },
           {
+            separator: true
+
+           },
+          {
             label: 'Contas Pagar',
             icon: 'pi pi-calculator',
             //      routerLink: ['/contaspagar'],
           },
+          {
+            separator: true
+
+           },
           {
             label: 'Caixa',
             icon: 'fa-solid fa-cash-register fa-xl',
@@ -135,5 +182,8 @@ export class MenuComponent {
     console.log("clicou")
     this.menuOpen = !this.menuOpen;
   }
+  closeCallback(e:any): void {
+    this.sidebarRef.close(e);
+}
 
 }
