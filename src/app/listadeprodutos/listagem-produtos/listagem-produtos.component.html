@@ -23,7 +23,7 @@
     <div class="grid">
       <div class="col-12 ">
 
-        <p-table [value]="produtos" dataKey="id" styleClass="p-datatable-gridlines p-datatable-sm p-datatable-customer"
+        <p-table [value]="produtos" dataKey="id" responsiveLayout="stack" styleClass="p-datatable-gridlines p-datatable-sm p-datatable-customer"
           [lazy]="true" selectionMode="single" (onLazyLoad)="aoMudarPagina($event)" [paginator]="true"
           [totalRecords]="totalRegistros" [rows]="produtofiltro.itensPorPagina">
 
