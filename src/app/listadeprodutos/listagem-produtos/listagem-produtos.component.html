@@ -83,7 +83,8 @@
               <th>caracteristica </th>
               <th>Código Ean 13 </th>
               <th style="text-align: right;" >Preço de Venda</th>
-              <th>Unidade de Medida</th>
+              <th style="text-align: right;">Qtde por Sku</th>
+              <th style="text-align: center;">Unidade de Medida</th>
 
             </tr>
           </ng-template>
@@ -94,7 +95,8 @@
               <td>{{ produtoSku.caracteristica }}</td>
               <td>{{ produtoSku.codigoEan13Sku }}</td>
               <td style="text-align: right;">{{ produtoSku.valordeVenda | currency: 'BRL' }}</td>
-              <td>{{ produtoSku.medida }}</td>
+              <td style="text-align: right;">{{ produtoSku.qtdeporSku }}</td>
+              <td style="text-align: center;">{{ produtoSku.medida }}</td>
             </tr>
           </ng-template>
           <ng-template pTemplate="emptymessage">
