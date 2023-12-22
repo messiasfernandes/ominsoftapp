@@ -47,3 +47,22 @@ body{
 .menu-closed {
   margin-left: -250px;
 }
+
+
+mponent, .p-component * {
+    box-sizing: border-box;
+}
+.p-toolbar {
+    border: 0 none;
+}
+.p-toolbar {
+    background: #050505;
+    border: 1px solid #e0e0e0;
+    padding: 1rem;
+    border-radius: 4px;
+    gap: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
