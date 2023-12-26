@@ -1,17 +1,23 @@
 <div class="container">
+  <p-card header="Lista de  Produtos">
   <div class="card">
     <div class="grid">
+
       <div class="col-12 md:col-6 lg:col-12">
+
         <p-toolbar>
+          <div class="p-toolbar-group-start">
 
+              <button pButton icon="pi pi-plus" class="mr-2"></button>
+              <button pButton icon="pi pi-print" class="mr-2"></button>
+              <button pButton icon="pi pi-upload"></button>
+          </div>
+          <div class="p-toolbar-group-center">
 
-            <h2 style="color: white;"> <b>Consulta Produto</b></h2>
+            <button pButton icon="fa-solid fa-circle-plus" pTooltip="Adicionar Produto" label="novo" routerLink="/produtos/novo"
+            routerLinkActive="active-link" class="p-button-success"></button>
 
-
-            <div class="col-2 md:col-6 lg:col-2 p-fluid col-offset-6">
-              <button pButton icon="pi pi-plus" pTooltip="Adicionar Produto" label="novo" routerLink="/produtos/novo"
-              routerLinkActive="active-link" class="p-button-success p-button-lg"></button>
-            </div>
+          </div>
 
       </p-toolbar>
       </div>
@@ -30,14 +36,8 @@
           </span>
         </form>
       </div>
-      <div class="col-6 md:col-6 lg:col-2">
-        <button pButton icon="pi pi-plus" pTooltip="Adicoinar Produto" label="novo" routerLink="/produtos/novo"
-          routerLinkActive="active-link" class="p-button-success p-button-lg"></button>
-      </div>
-      <div class="col-2 md:col-6 lg:col-2 p-fluid col-offset-6">
-        <button pButton icon="pi pi-plus" pTooltip="Adicionar Produto" label="novo" routerLink="/produtos/novo"
-          routerLinkActive="active-link" class="p-button-success p-button-lg"></button>
-      </div>
+
+
     </div>
     <div class="grid">
       <div class="col-12 ">
@@ -131,6 +131,9 @@
       </p-table>
 
     </div>
+
   </div>
+
 </div>
+</p-card>
 </div>
