@@ -53,10 +53,10 @@ mponent, .p-component * {
     box-sizing: border-box;
 }
 .p-toolbar {
-    border: 0 none;
+   /*order: 0 none;*/
 }
 .p-toolbar {
-    background: #435d7d;
+  /*  background: #626263;*/
     border: 1px solid #e0e0e0;
     padding: 1rem;
     border-radius: 4px;
@@ -66,3 +66,4 @@ mponent, .p-component * {
     justify-content: space-between;
     flex-wrap: wrap;
 }
+

@@ -12,6 +12,8 @@ import { PrimengModule } from './shared/primeng/primeng.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MenuComponent } from './shared/menu/menu.component';
+import { CadadstroprodutoComponent } from './listadeprodutos/cadastroproduto/cadadstroproduto/cadadstroproduto.component';
+
 registerLocaleData(ptBr, localePt);
 
 registerLocaleData(localePt, 'pt-BR');
@@ -20,6 +22,9 @@ registerLocaleData(localePt, 'pt-BR');
     AppComponent,
     ListagemProdutosComponent,
     MenuComponent,
+    CadadstroprodutoComponent,
+
+
 
   ],
   imports: [

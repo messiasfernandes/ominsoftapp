@@ -11,6 +11,7 @@ import { ProdutoService } from 'src/app/services/produtoservice.service';
 export class ListagemProdutosComponent implements OnInit {
   produtofiltro = new Filtro();
   produtos: any[] = [];
+  numeros : number[]=[1, 2, 3 ,4, 5 ,6]
   totalRegistros = 0;
   constructor(private produtoServcice : ProdutoService){
 

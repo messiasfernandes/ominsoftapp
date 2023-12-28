@@ -25,7 +25,7 @@ import { PanelModule } from 'primeng/panel';
     SidebarModule,
     SplitButtonModule,
     CardModule,
-    PanelMenuModule
+    PanelModule
   ]
 
 

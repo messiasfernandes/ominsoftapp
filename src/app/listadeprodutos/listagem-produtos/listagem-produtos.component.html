@@ -1,29 +1,11 @@
 <div class="container">
-  <p-card header="Lista de  Produtos">
+<p-card header="Lista de Produtos">
+
   <div class="card">
-    <div class="grid">
 
-      <div class="col-12 md:col-6 lg:col-12">
 
-        <p-toolbar>
-          <div class="p-toolbar-group-start">
+    <div class=" grid">
 
-              <button pButton icon="pi pi-plus" class="mr-2"></button>
-              <button pButton icon="pi pi-print" class="mr-2"></button>
-              <button pButton icon="pi pi-upload"></button>
-          </div>
-          <div class="p-toolbar-group-center">
-
-            <button pButton icon="fa-solid fa-circle-plus" pTooltip="Adicionar Produto" label="novo" routerLink="/produtos/novo"
-            routerLinkActive="active-link" class="p-button-success"></button>
-
-          </div>
-
-      </p-toolbar>
-      </div>
-    </div>
-
-    <div class="p-fluid grid">
       <div class="col-6 md:col-6 lg:col-4 p-fluid">
         <form autocomplete="off" (ngSubmit)="buscar()">
           <span class="p-float-label">
@@ -35,8 +17,12 @@
             </span>
           </span>
         </form>
-      </div>
 
+      </div>
+      <div class="col-6 md:col-6 lg:col-2 p-fluid  ">
+        <button pButton icon="pi pi-plus-circle" type="button" pTooltip="Adicionar Produto" label="novo" routerLink="/produtos/novo"
+            routerLinkActive="active-link" class="p-button-success p-button-lg"></button>
+      </div>
 
     </div>
     <div class="grid">
@@ -44,7 +30,8 @@
 
         <p-table [value]="produtos" dataKey="id" responsiveLayout="stack" styleClass="p-datatable-gridlines p-datatable-sm p-datatable-customer"
           [lazy]="true" selectionMode="single" (onLazyLoad)="aoMudarPagina($event)" [paginator]="true"
-          [totalRecords]="totalRegistros" [rows]="produtofiltro.itensPorPagina">
+          [totalRecords]="totalRegistros" [rows]="produtofiltro.itensPorPagina"    [showCurrentPageReport]="true"
+          [rowsPerPageOptions]="numeros"    currentPageReportTemplate="total de registro  {first} de {last} total de regustro  {totalRecords}">
 
           <ng-template pTemplate="header">
             <tr>
@@ -94,7 +81,7 @@
             <tr>
               <td colspan="7">
                 <div class="p-3">
-                  <p-table [value]="produto.proutos_skus" dataKey="id">
+                  <p-table [value]="produto.proutos_skus" selectionMode="single" responsiveLayout="stack" dataKey="id" responsiveLayout="stack">
                     <ng-template pTemplate="header">
             <tr>
 

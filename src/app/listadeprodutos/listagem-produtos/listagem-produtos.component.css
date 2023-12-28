@@ -1,0 +1,15 @@
+.p-panel .p-panel-header {
+  border: 1px solid #e0e0e0;
+  padding: 1rem;
+  background: #2e2f30;
+  color: rgba(0, 0, 0, 0.87);
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+}
+.text-primary {
+  color: #ad0feb !important;
+}
+.p-panel .p-panel-header .p-panel-title {
+  font-weight: 500;
+  color: white;
+}
