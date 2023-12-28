@@ -40,8 +40,8 @@ export class CadadstroprodutoComponent implements OnInit {
       };
       this.arquivoService.upload(formadata).subscribe((resposta) => {
         console.log(resposta);
-//this.url='';
-this.url=this.getbuscarfoto(this.produto.imagemPrincipal)
+
+       this.url=this.getbuscarfoto(this.produto.imagemPrincipal)
         /// this.produto.imagemproduto = resposta.nomeArquivo;
       });
 
