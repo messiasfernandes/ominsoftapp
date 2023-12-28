@@ -21,10 +21,17 @@
           </div>
         </div>
         <div class="col-4 md:col-6 lg:col-4 p-fluid">
-          <div class="h-full picture">
-            <span class="picture__image"> <img [src]="" /></span>
+          <div class="h-full picture" (click)="upLoad()">
+
+              <span class="picture__image">
+                <img [src]="url" class="picture__img" *ngIf="url" />
+                <span *ngIf="!url" class="centered-text">{{ pictureImageTxt }}</span>
+              </span>
+
           </div>
         </div>
+
+
         <div class="col-6 md:col-6 lg:col-2 p-fluid">
           <button pButton pRipple type="button" icon="pi pi-sign-in" label="Voltar" routerLink="/produtos"
             class="p-button-outlined p-button-lg p-button-danger"></button>

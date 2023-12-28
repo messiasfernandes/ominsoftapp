@@ -2,7 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, DEFAULT_CURRENCY_CODE, LOCALE_ID, NO_ERRORS_SCH
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ListagemProdutosComponent } from './listadeprodutos/listagem-produtos/listagem-produtos.component';
+import { ListagemProdutosComponent } from './produtos/listagem-produtos/listagem-produtos.component';
 
 import ptBr from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
@@ -12,7 +12,7 @@ import { PrimengModule } from './shared/primeng/primeng.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MenuComponent } from './shared/menu/menu.component';
-import { CadadstroprodutoComponent } from './listadeprodutos/cadastroproduto/cadadstroproduto/cadadstroproduto.component';
+import { CadadstroprodutoComponent } from './produtos/cadastroproduto/cadadstroproduto/cadadstroproduto.component';
 
 registerLocaleData(ptBr, localePt);
 
@@ -35,7 +35,7 @@ registerLocaleData(localePt, 'pt-BR');
     FormsModule,
     HttpClientModule
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt' },
     { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' },

@@ -31,7 +31,7 @@
         <p-table [value]="produtos" dataKey="id" responsiveLayout="stack" styleClass="p-datatable-gridlines p-datatable-sm p-datatable-customer"
           [lazy]="true" selectionMode="single" (onLazyLoad)="aoMudarPagina($event)" [paginator]="true"
           [totalRecords]="totalRegistros" [rows]="produtofiltro.itensPorPagina"    [showCurrentPageReport]="true"
-          [rowsPerPageOptions]="numeros"    currentPageReportTemplate="total de registro  {first} de {last} total de regustro  {totalRecords}">
+          [rowsPerPageOptions]="numeros"    currentPageReportTemplate="total de registro  {first} de {last} total de registros  {totalRecords}">
 
           <ng-template pTemplate="header">
             <tr>
