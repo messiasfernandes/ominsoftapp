@@ -11,6 +11,8 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { CardModule } from 'primeng/card';
 import { PanelModule } from 'primeng/panel';
 import { ImageModule } from 'primeng/image';
+
+import { InputNumberModule } from 'primeng/inputnumber';
 @NgModule({
   declarations: [],
   imports: [
@@ -27,7 +29,8 @@ import { ImageModule } from 'primeng/image';
     SplitButtonModule,
     CardModule,
     PanelModule,
-    ImageModule
+    ImageModule,
+    InputNumberModule
   ]
 
 

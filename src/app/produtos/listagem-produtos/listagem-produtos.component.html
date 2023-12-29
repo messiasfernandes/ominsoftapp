@@ -19,7 +19,7 @@
         </form>
 
       </div>
-      <div class="col-6 md:col-6 lg:col-2 p-fluid  ">
+      <div class="col-6 md:col-6 lg:col-2 p-fluid">
         <button pButton icon="pi pi-plus-circle" type="button" pTooltip="Adicionar Produto" label="novo" routerLink="/produtos/novo"
             routerLinkActive="active-link" class="p-button-success p-button-lg"></button>
       </div>
@@ -31,7 +31,7 @@
         <p-table [value]="produtos" dataKey="id" responsiveLayout="stack" styleClass="p-datatable-gridlines p-datatable-sm p-datatable-customer"
           [lazy]="true" selectionMode="single" (onLazyLoad)="aoMudarPagina($event)" [paginator]="true"
           [totalRecords]="totalRegistros" [rows]="produtofiltro.itensPorPagina"    [showCurrentPageReport]="true"
-          [rowsPerPageOptions]="numeros"    currentPageReportTemplate="total de registro  {first} de {last} total de registros  {totalRecords}">
+          [rowsPerPageOptions]="[1,2,4,10,15]"    currentPageReportTemplate="total de registro  {first} de {last} total de registros  {totalRecords}">
 
           <ng-template pTemplate="header">
             <tr>

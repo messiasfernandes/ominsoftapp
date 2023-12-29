@@ -1,6 +1,8 @@
+import { MarcaProduto } from './../../../model/marcaproduto';
 import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
 import { Produto } from 'src/app/model/produto';
-import { ArquivoService } from 'src/app/service/arquivo.service';
+import { Subgrupo } from 'src/app/model/subgrupo';
+import { ArquivoService } from 'src/app/services/arquivo.service';
 
 @Component({
   selector: 'app-cadadstroproduto',
@@ -9,6 +11,8 @@ import { ArquivoService } from 'src/app/service/arquivo.service';
 })
 export class CadadstroprodutoComponent implements OnInit {
   produto = new Produto();
+  subgrupo= new  Subgrupo ();
+   marcaProduto = new    MarcaProduto()
   inputFile: any;
   pictureImage: any;
   pictureImageTxt = "Escolha uma imagem";

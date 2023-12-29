@@ -13,19 +13,94 @@
               <span class="p-float-label">
                 <input type="text" id="produtonome" required="true" name="nomeproduto" pInputText
                   [(ngModel)]="produto.nomeProduto" ngModel #nomeproduto="ngModel"
-                  placeholder="nome produto, kit ou combo" />
+                  placeholder="nome produto" />
 
                 <label for="produtonome">Nome Produto</label>
               </span>
 
             </div>
-            <div class="col-6">
-              <div class="text-center p-3 border-round-sm bg-primary font-bold">6</div>
+            <div class="col-12 md:col-6 lg:col-5 p-fluid ">
+              <span class="p-float-label">
+                <input type="text" id="nomeMarca" readonly="true" required="true" name="nomeMarca" pInputText
+                [(ngModel)]="marcaProduto.nomeMarca"  #nomeMarca="ngModel"
+                placeholder="Marca" />
+
+
+                <label for="marcaProduto">Marca</label>
+              </span>
+
             </div>
-            <div class="col-12">
-              <div class="text-center p-3 border-round-sm bg-primary font-bold">12</div>
+            <div class="col-12 md:col-6 lg:col-1  flex d-flex flex-column align-items-center justify-content-center"  >
+              <button pButton pRipple type="button" icon="pi pi-plus"
+                pTooltip="Adicionar Marca" class="p-button-lg p-button-info"></button>
             </div>
+
+            <div class="col-12 md:col-6 lg:col-2 p-fluid">
+              <span class="p-float-label">
+                <input type="text" id="fabricante" pInputText name="codigofabricante"
+                  [(ngModel)]="produto.codigofabricante" readonly="true" />
+
+                <label for="fabricante">Código Fabricante</label>
+              </span>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3 p-fluid">
+              <span class="p-float-label">
+                <input type="text" id="marca" pInputText name="codigoEan13" [(ngModel)]="produto.codigoEan13"
+                  readonly="true" />
+
+                <label for="marca">Codigo Ean 13</label>
+              </span>
+            </div>
+            <div class="col-12 md:col-6 lg:col-2 p-fluid">
+              <button pButton class="p-button-lg p-button-info p-button-outlined" icon="fa-solid fa-barcode fa-lg"  type="button" pTooltip="Gera Ean 13"
+                 label="Gerar "> </button>
+
+            </div>
+            <div class="col-12 md:col-6 lg:col-4 p-fluid">
+              <span class="p-float-label">
+                <input type="text" id="nomeSubgrupo" readonly="true" required="true" name="nomeSubgrupo" pInputText
+                [(ngModel)]="subgrupo.nomeSubgrupo"  #nomeSubgrupo="ngModel"
+                placeholder="subgrupo" />
+
+
+                <label for="nomeSubgrupo">Subgrupo</label>
+              </span>
+
+            </div>
+
+            <div class="col-12 md:col-6 lg:col-1   p-fluid  flex    d-flex flex-column  align-items-center justify-content-center ">
+              <button pButton pRipple type="button" icon="pi pi-plus" tooltipPosition="top"
+                pTooltip="Adicionar Subgrupo" class="p-button-lg p-button-info"></button>
+            </div>
+
+            <div class="col-12 md:col-6 lg:col-4 p-fluid">
+              <span class="p-float-label">
+                <p-inputNumber inputId="custo" currency="BRL" mode="currency" name="precocusto" locale="pt-Br"
+                  [(ngModel)]="produto.precocusto" [minFractionDigits]="2"></p-inputNumber>
+                <label for="custo"> Preço Custo</label>
+              </span>
+            </div>
+            <div class="col-12 md:col-6 lg:col-4 p-fluid">
+              <span class="p-float-label">
+                <p-inputNumber inputId="custo_nedio" currency="BRL" [required]="true" #customedio="ngModel"
+                  name="customedio" mode="currency" locale="pt-Br" [(ngModel)]="produto.customedio"
+                  [minFractionDigits]="2"></p-inputNumber>
+                <label for="custo_medio"> Custo Médio</label>
+
+              </span>
+            </div>
+
+            <div class="col-12 md:col-6 lg:col-4 p-fluid ">
+              <span class="p-float-label">
+                <p-inputNumber inputId="preco_venda" currency="BRL" mode="currency" name="precovenda" locale="pt-Br"
+                  [(ngModel)]="produto.precovenda" [minFractionDigits]="2"></p-inputNumber>
+                <label for="preco_venda"> Preço de Venda</label>
+              </span>
+            </div>
+
           </div>
+
+
         </div>
         <div class="col-4 md:col-6 lg:col-4 p-fluid">
           <div class="h-full picture" (click)="upLoad()">
