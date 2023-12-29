@@ -5,14 +5,14 @@
   <p-card header="Cadastro de Produtos" subheader="Card Subheader">
     <div class="card">
 
-
+      <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)" >
       <div class="grid nested-grid">
         <div class="col-8 md:col-6 lg:col-8 p-fluid">
           <div class="grid">
             <div class="col-12 md:col-6 lg:col-6 p-fluid">
               <span class="p-float-label">
-                <input type="text" id="produtonome" required="true" name="nomeproduto" pInputText
-                  [(ngModel)]="produto.nomeProduto" ngModel #nomeproduto="ngModel"
+                <input type="text" id="produtonome"  name="nomeProduto" pInputText
+                  [(ngModel)]="produto.nomeProduto"
                   placeholder="nome produto" />
 
                 <label for="produtonome">Nome Produto</label>
@@ -21,16 +21,16 @@
             </div>
             <div class="col-12 md:col-6 lg:col-5 p-fluid ">
               <span class="p-float-label">
-                <input type="text" id="nomeMarca" readonly="true" required="true" name="nomeMarca" pInputText
-                [(ngModel)]="marcaProduto.nomeMarca"  #nomeMarca="ngModel"
+                <input type="text" id="nomeMarca" readonly="true"  name="nomeMarca" pInputText
+                [(ngModel)]="marcaProduto.nomeMarca"
                 placeholder="Marca" />
 
 
-                <label for="marcaProduto">Marca</label>
+                <label for="marca">Marca</label>
               </span>
 
             </div>
-            <div class="col-12 md:col-6 lg:col-1  flex d-flex flex-column align-items-center justify-content-center"  >
+            <div class="col-12 md:col-6 lg:col-1  flex  d-flex align-items-center justify-content-center" >
               <button pButton pRipple type="button" icon="pi pi-plus"
                 pTooltip="Adicionar Marca" class="p-button-lg p-button-info"></button>
             </div>
@@ -38,7 +38,7 @@
             <div class="col-12 md:col-6 lg:col-2 p-fluid">
               <span class="p-float-label">
                 <input type="text" id="fabricante" pInputText name="codigofabricante"
-                  [(ngModel)]="produto.codigofabricante" readonly="true" />
+                  [(ngModel)]="produto.codigofabricante" />
 
                 <label for="fabricante">Código Fabricante</label>
               </span>
@@ -58,8 +58,8 @@
             </div>
             <div class="col-12 md:col-6 lg:col-4 p-fluid">
               <span class="p-float-label">
-                <input type="text" id="nomeSubgrupo" readonly="true" required="true" name="nomeSubgrupo" pInputText
-                [(ngModel)]="subgrupo.nomeSubgrupo"  #nomeSubgrupo="ngModel"
+                <input type="text" id="nomeSubgrupo" readonly="true"  name="nomeSubgrupo" pInputText
+                [(ngModel)]="subgrupo.nomeSubgrupo"
                 placeholder="subgrupo" />
 
 
@@ -68,7 +68,7 @@
 
             </div>
 
-            <div class="col-12 md:col-6 lg:col-1   p-fluid  flex    d-flex flex-column  align-items-center justify-content-center ">
+            <div class="col-12 md:col-6 lg:col-1  col  p-fluid  flex    d-flex flex-column  align-items-center justify-content-center ">
               <button pButton pRipple type="button" icon="pi pi-plus" tooltipPosition="top"
                 pTooltip="Adicionar Subgrupo" class="p-button-lg p-button-info"></button>
             </div>
@@ -82,10 +82,10 @@
             </div>
             <div class="col-12 md:col-6 lg:col-4 p-fluid">
               <span class="p-float-label">
-                <p-inputNumber inputId="custo_nedio" currency="BRL" [required]="true" #customedio="ngModel"
+                <p-inputNumber inputId="custom" currency="BRL" [required]="true"
                   name="customedio" mode="currency" locale="pt-Br" [(ngModel)]="produto.customedio"
                   [minFractionDigits]="2"></p-inputNumber>
-                <label for="custo_medio"> Custo Médio</label>
+                <label for="custom"> Custo Médio</label>
 
               </span>
             </div>
@@ -119,10 +119,11 @@
             class="p-button-outlined p-button-lg p-button-danger"></button>
         </div>
         <div class="col-6 md:col-6 lg:col-2 p-fluid">
-          <button pButton pRipple type="submit"  class="p-button-lg p-button-success"
+          <button pButton pRipple type="submit"   [disabled]="!f.valid" class="p-button-lg p-button-success"
             iconPos="left" icon="pi pi-save" label="Salvar"></button>
         </div>
       </div>
+    </form>
     </div>
   </p-card>
 

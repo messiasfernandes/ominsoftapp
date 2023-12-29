@@ -1,5 +1,6 @@
+import { NgForm } from '@angular/forms';
 import { MarcaProduto } from './../../../model/marcaproduto';
-import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2, NgZone } from '@angular/core';
 import { Produto } from 'src/app/model/produto';
 import { Subgrupo } from 'src/app/model/subgrupo';
 import { ArquivoService } from 'src/app/services/arquivo.service';
@@ -17,7 +18,7 @@ export class CadadstroprodutoComponent implements OnInit {
   pictureImage: any;
   pictureImageTxt = "Escolha uma imagem";
    url:string='';
-  constructor( private arquivoService: ArquivoService,) {}
+  constructor( private arquivoService: ArquivoService, private zone: NgZone) {}
 
   ngOnInit() {
 
@@ -61,5 +62,13 @@ export class CadadstroprodutoComponent implements OnInit {
     ///  this.url = '/assets/no-image-icon.jpg';
     }
     return this.url;
+  }
+  salvar(form: NgForm){
+    console.log('Método salvar chamado!');
+    this.zone.run(() => {
+      console.log('Método salvar chamado!');
+     console.log(form.value);
+      // form.reset();
+    });
   }
 }

@@ -42,3 +42,10 @@
   margin: 0 15px;
 }
 
+::ng-deep .no-label>.p-button-label {
+  display: none;
+}
+
+::ng-deep .no-icon>.p-button-icon {
+  display: none;
+}
