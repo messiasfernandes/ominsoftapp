@@ -11,8 +11,10 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { CardModule } from 'primeng/card';
 import { PanelModule } from 'primeng/panel';
 import { ImageModule } from 'primeng/image';
-
+import {DialogService, DynamicDialogConfig, DynamicDialogModule} from 'primeng/dynamicdialog';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { ConfirmationService, MessageService } from 'primeng/api';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -31,7 +33,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
     PanelModule,
     ImageModule,
     InputNumberModule
-  ]
+  ],
+  providers:[MessageService, ConfirmationService,DialogService,DynamicDialogConfig]
 
 
 })

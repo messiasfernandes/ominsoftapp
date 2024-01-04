@@ -12,7 +12,13 @@ import { PrimengModule } from './shared/primeng/primeng.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MenuComponent } from './shared/menu/menu.component';
-import { CadadstroprodutoComponent } from './produtos/cadastroproduto/cadadstroproduto/cadadstroproduto.component';
+import { CadadastroprodutoComponent } from './produtos/cadastroproduto/cadadstroproduto/cadadastroproduto.component';
+import { MessageComponent } from './shared/message/message.component';
+import { ProdutoService } from './services/produtoservice.service';
+import { MessageService } from 'primeng/api';
+import { ListasubgrupodialogComponent } from './subgrupo/listasubgrupodialog/listasubgrupodialog.component';
+
+
 
 registerLocaleData(ptBr, localePt);
 
@@ -22,7 +28,10 @@ registerLocaleData(localePt, 'pt-BR');
     AppComponent,
     ListagemProdutosComponent,
     MenuComponent,
-    CadadstroprodutoComponent,
+    CadadastroprodutoComponent,
+    MessageComponent,
+    ListasubgrupodialogComponent,
+
 
 
 
@@ -39,6 +48,7 @@ registerLocaleData(localePt, 'pt-BR');
   providers: [
     { provide: LOCALE_ID, useValue: 'pt' },
     { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' },
+    ProdutoService,    MessageService,
   ],
   bootstrap: [AppComponent]
 })

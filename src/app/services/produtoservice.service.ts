@@ -2,14 +2,18 @@ import { Injectable } from '@angular/core';
 import { Filtro } from '../model/filtro';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Produto } from '../model/produto';
-import { Observable } from 'rxjs';
+import { Observable, single } from 'rxjs';
 import { config } from '../shared/config';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ListasubgrupodialogComponent } from '../subgrupo/listasubgrupodialog/listasubgrupodialog.component';
+import { Subgrupo } from '../model/subgrupo';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProdutoService {
-  constructor(private http: HttpClient) {}
+  ref: DynamicDialogRef;
+  constructor(private http: HttpClient, public dialogService: DialogService) {}
 
   pesquisar(filtro: Filtro): Observable<Produto> {
     const headers = new HttpHeaders().append(
@@ -29,5 +33,33 @@ export class ProdutoService {
     });
 
     return response;
+  }
+  detalhar(id: number): Observable<Produto> {
+    return this.http.get<Produto>(`${config.baseurl}produtos/${id}`);
+  }
+
+  async openSubgrupoDialog(): Promise<Subgrupo> {
+    return new Promise<Subgrupo>((resolve, reject) => {
+      const sub = new Subgrupo();
+
+      const ref = this.dialogService.open(ListasubgrupodialogComponent, {
+        header: 'Lista de SubCategorias',
+        width: '90%',
+        modal: true,
+        styleClass: "{'960px': '70vw'}",
+        contentStyle: { overflow: 'hidden' },
+        resizable: false,
+        baseZIndex: 10000,
+      });
+
+      ref.onClose.subscribe((subgrupo: Subgrupo) => {
+        if (subgrupo) {
+          console.log(subgrupo);
+          resolve(subgrupo);
+        } else {
+          reject(); // ou resolve(null) se preferir
+        }
+      });
+    });
   }
 }

@@ -67,3 +67,22 @@ mponent, .p-component * {
     flex-wrap: wrap;
 }
 
+:host::ng-deep .meu_burton{
+  background: #5a6268;
+  color: #ffffff;
+  border-color: #5a6268;
+
+  border: 1px solid #6c757d;
+}
+
+
+:host::ng-deep p-button :enabled:hover{
+    background: #5a6268;
+    color: #ffffff;
+    border-color: #5a6268;
+}
+:host::ng-deep .p-button.p-button-secondary:enabled:hover, .p-buttonset.p-button-secondary > .p-button:enabled:hover, .p-splitbutton.p-button-secondary > .p-button:enabled:hover {
+  background: #5a6268;
+  color: #ffffff;
+  border-color: #5a6268;
+}
