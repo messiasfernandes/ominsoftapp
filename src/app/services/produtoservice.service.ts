@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Filtro } from '../model/filtro';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Produto } from '../model/produto';
-import { Observable, single } from 'rxjs';
+import { Observable, map, single } from 'rxjs';
 import { config } from '../shared/config';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ListasubgrupodialogComponent } from '../subgrupo/listasubgrupodialog/listasubgrupodialog.component';
@@ -61,5 +61,16 @@ export class ProdutoService {
         }
       });
     });
+  }
+  GerarEn13(): Observable<string> {
+    return this.http.post<string>(
+      `${config.baseurl}produtos/gerarean13`,
+      {},
+      {
+        observe: 'response',
+      }
+    ).pipe(
+      map(response => response.body as string) // Extrair o corpo da resposta e convertê-lo em string
+    );
   }
 }
