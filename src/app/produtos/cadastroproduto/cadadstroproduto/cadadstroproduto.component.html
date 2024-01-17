@@ -147,102 +147,161 @@
             </div>
           </form>
         </p-tabPanel>
-   <p-tabPanel header="Varições">
-    <div class="grid p-fluid p-formgroup-inline">
-      <div class="col-12 md:col-6 lg:col-6 p-fluid">
-        <span class="p-float-label">
-          <input type="text" id="inptproduto" pInputText required="true" pInputText name="tipo"
-            [(ngModel)]="atributo.tipo" />
+        <p-tabPanel header="Varições">
+          <div class="grid p-fluid p-formgroup-inline">
+            <div class="col-12 md:col-6 lg:col-6 p-fluid">
+              <span class="p-float-label">
+                <input type="text" id="inptproduto" pInputText required="true" pInputText name="tipo"
+                  [(ngModel)]="atributo.tipo" />
 
-          <label for="inptproduto">Tipo</label>
-        </span>
-      </div>
+                <label for="inptproduto">Tipo</label>
+              </span>
+            </div>
 
-      <div class="col-12 md:col-6 lg:col-5 p-fluid">
-        <span class="p-float-label">
-          <input type="text" id="marca" pInputText name="novoValor" [(ngModel)]="novoValor" />
+            <div class="col-12 md:col-6 lg:col-5 p-fluid">
+              <span class="p-float-label">
+                <input type="text" id="marca" pInputText name="novoValor" [(ngModel)]="novoValor" />
 
-          <label for="marca">Valor</label>
-        </span>
-      </div>
-      <div class="col-12 md:col-6 lg:col-1">
-        <button pButton pRipple icon="pi pi-plus" type="button" (click)="acdiconarAtributo()" pTooltip="Adicionar atributos"
-          class="p-button-success p-button-lg"></button>
-      </div>
-    </div>
-    <div class="grid">
-      <div class="col-12">
-        <p-table [value]=" produto.proutos_skus" dataKey="id" editMode="row" [editable]="true" [tableStyle]="{'min-width': '50rem'}" #tempDataTable>
-          <ng-template pTemplate="header">
-              <tr>
-                  <th style="width:20%">Code</th>
-                  <th style="width:20%">Name</th>
-                  <th style="width:20%">Inventory Status</th>
-                  <th style="width:20%">Price</th>
-                  <th style="width:20%"></th>
-              </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
-              <tr [pEditableRow]="product" >
-                  <td>
+                <label for="marca">Valor</label>
+              </span>
+            </div>
+            <div class="col-12 md:col-6 lg:col-1">
+              <button pButton pRipple icon="pi pi-plus" type="button" (click)="acdiconarAtributo()"
+                pTooltip="Adicionar atributos" class="p-button-success p-button-lg"></button>
+            </div>
+          </div>
+          <div class="grid">
+            <div class="col-12">
+              <p-table [value]=" produto.proutos_skus" dataKey="id" editMode="row" [resizableColumns]="true"  styleClass="p-datatable-striped "
+                responsiveLayout="stack" #tempDataTable>
+                <ng-template pTemplate="header">
+                  <tr >
+
+                    <th  style="width: 25%;" >Cararcterisca</th>
+
+                    <th style="width: 25%;"  >Gtin/Ean 13</th>
+                    <th style="width: 10%;">Qtde </th>
+                    <th style="width: 10%;" >Multiplicador</th>
+                    <th style="width: 10%;"  >Price</th>
+                    <th style="width: 20%;" >Unidade </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
+                  <tr [pEditableRow]="product">
+                    <td >
+                      <div>
                       <p-cellEditor>
-                          <ng-template pTemplate="input">
-                              <input pInputText type="text" readonly="true" [(ngModel)]="product.caracteristica">
-                          </ng-template>
-                          <ng-template pTemplate="output">
-                            {{product.caracteristica}}
-                          </ng-template>
-                      </p-cellEditor>
-                  </td>
-                  <td>
-                      <p-cellEditor>
-                          <ng-template pTemplate="input">
-                              <input pInputText type="text" [(ngModel)]="product.codigoEan13Sku" required>
-                          </ng-template>
-                          <ng-template pTemplate="output">
-                              {{product.codigoEan13Sku}}
-                          </ng-template>
-                      </p-cellEditor>
-                  </td>
-                  <td>
+                        <ng-template pTemplate="input">
+                          <input pInputText type="text" readonly="true" [(ngModel)]="product.caracteristica">
+                        </ng-template>
 
-                    <div class="flex align-items-center justify-content-center gap-2">
-
-                            <button  pButton pRipple  icon="fa-solid fa-barcode fa-lg"  (click)="gerarEan13(product , ri)" pTooltip="gerar" tooltipPosition="top"
-                            class="p-button-info p-button-outlined  mr-2 p-button-text"  type="button"></button>
-                    </div>
-
-                  </td>
-                  <td>
-                      <p-cellEditor>
-                          <ng-template pTemplate="input">
-                              <input pInputText type="text" [(ngModel)]="product.price">
-                          </ng-template>
-                          <ng-template pTemplate="output">
-                              {{product.price | currency: 'USD'}}
-                          </ng-template>
                       </p-cellEditor>
-                  </td>
-                  <td>
-                      <div class="flex align-items-center justify-content-center gap-2">
-                          <button  pButton pRipple type="button"  icon="pi pi-pencil"  class="p-button-rounded p-button-text"></button>
-                          <button  pButton pRipple type="button"  icon="pi pi-check"  class="p-button-rounded p-button-text p-button-success mr-2"></button>
-                          <button  pButton pRipple type="button"  icon="pi pi-times" (click)="removerLinha(ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                      <ng-template pTemplate="output">
+                        {{product.caracteristica}}
+                      </ng-template>
                       </div>
-                  </td>
-              </tr>
-          </ng-template>
-      </p-table>
-      </div>
-    </div>
-   </p-tabPanel>
+                    </td>
+                    <td>
+                      <div>
+                        <p-cellEditor>
+                          <ng-template pTemplate="input">
+                            <div class="p-inputgroup">
+                              <input pInputText type="text" [style]="{'width':'100%'}"  [(ngModel)]="product.codigoEan13Sku">
+                              <button pButton pRipple icon="fa-solid fa-barcode fa-lg"
+                                (click)="gerarEan13(product , ri)" pTooltip="gerar" tooltipPosition="top"
+                                class="p-button-info p-button-outlined  mr-2 p-button-text" type="button"></button>
+                            </div>
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                            {{product.codigoEan13Sku}}
+                          </ng-template>
+                        </p-cellEditor>
+                      </div>
+                    </td>
+                    <td>
+                      <p-cellEditor>
+                        <ng-template pTemplate="input">
+
+                          <input pInputText type="number" [(ngModel)]="product.qtdePorSku" name="qtdePorSku">
+
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                          {{product.precodeVenda | currency}}
+                        </ng-template>
+                      </p-cellEditor>
+
+
+                    </td>
+                    <td>
+
+                      <div>
+                        <p-cellEditor>
+                          <ng-template pTemplate="input">
+                            <input pInputText type="number" name="Multiplicador" [(ngModel)]="product.mutiplicador">
+
+                          </ng-template>
+
+                        </p-cellEditor>
+                        <ng-template pTemplate="output">
+                          {{product.mutiplicador}}
+                        </ng-template>
+
+
+                      </div>
+                    </td>
+                    <td>
+                      <div class="col-4 md:col-6 lg:col-6 ">
+                      <p-cellEditor>
+                        <ng-template pTemplate="input">
+
+                          <p-inputNumber inputId="preco_venda" currency="BRL" mode="currency" name="precodeVenda"
+                            locale="pt-Br" [(ngModel)]="product.precodeVenda" [minFractionDigits]="2"></p-inputNumber>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                          {{product.precodeVenda | currency}}
+                        </ng-template>
+                      </p-cellEditor>
+                      </div>
+                    </td>
+                    <td>
+
+
+
+
+                      <div class="col-4 md:col-6 lg:col-12 ">
+                        <p-cellEditor>
+                          <ng-template pTemplate="input">
+                            <p-dropdown appendTo="body" [options]="medidas"   [style]="{'width':'100%'}" [autoDisplayFirst]="false"[(ngModel)]="product.medida"  name="medida"></p-dropdown>
+                          </ng-template>
+
+                        </p-cellEditor>
+                        <ng-template pTemplate="output">
+                          {{product.medida}}
+                        </ng-template>
+
+                      </div>
+                    </td>
+                    <td>
+                      <div class="flex align-items-center justify-content-center gap-2">
+                        <button pButton pRipple type="button" icon="pi pi-pencil"
+                          class="p-button-rounded p-button-text"></button>
+                        <button pButton pRipple type="button" icon="pi pi-check"
+                          class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                        <button pButton pRipple type="button" icon="fa-solid fa-trash" (click)="removerLinha(ri)"
+                          class=" p-button-danger mr2 p-button-text "></button>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </p-tabPanel>
       </p-tabView>
 
     </div>
 
   </p-card>
-
-
 
 
 

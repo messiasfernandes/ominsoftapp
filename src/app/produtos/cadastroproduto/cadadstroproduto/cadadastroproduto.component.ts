@@ -21,6 +21,8 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ListasubgrupodialogComponent } from 'src/app/subgrupo/listasubgrupodialog/listasubgrupodialog.component';
 import { FormdialogService } from 'src/app/services/formdialog.service';
 import { ProdutoSku } from 'src/app/model/produto-sku';
+import { Medida } from 'src/app/model/medida';
+import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-cadadstroproduto',
@@ -47,8 +49,11 @@ export class CadadastroprodutoComponent implements OnInit {
   produtosku = new ProdutoSku();
   atributo = new Atributo();
   atributos: any[] = [];
+  medidas: SelectItem[];
 
   novoItem: string = '';
+  valoresEnum = Object.values(Medida);
+  valorSelecionado: Medida;
   @ViewChild('tempDataTable') tempDataTable: any;
   constructor(
     private arquivoService: ArquivoService,
@@ -59,9 +64,15 @@ export class CadadastroprodutoComponent implements OnInit {
     private form: FormBuilder,
     private idParametro: ActivatedRoute,
     private formDialog: FormdialogService
-  ) {}
+
+  ) {
+    this.medidas=Object.keys(Medida).map(key => ({ label: Medida[key], value: key }));
+
+  }
 
   ngOnInit() {
+
+
     let codigoproduto = this.idParametro.snapshot.params['id'];
 
     if (codigoproduto) {
@@ -82,6 +93,7 @@ export class CadadastroprodutoComponent implements OnInit {
         this.atributo.valor = this.produtosku.caracteristica;
         console.log(this.produtosku.caracteristica);
         this.produtosku.atributos.push(this.atributo);
+
         this.produto.proutos_skus.push(this.produtosku);
         console.log(this.atributo);
         this.produtosku = new ProdutoSku();
@@ -98,7 +110,7 @@ export class CadadastroprodutoComponent implements OnInit {
           ? this.produto.proutos_skus[x].caracteristica + ' | ' + this.atributos[x]
           : this.atributos[x];
           this.produto.proutos_skus[x].atributos.push(this.atributo)
-
+         this.produto.proutos_skus[x].medida=this.valorSelecionado
 
           console.log(this.atributo)
 
@@ -197,10 +209,11 @@ removerLinha(index: number){
   criarFormulario() {}
   geraform() {}
   salvar(form: NgForm) {
+
     console.log('Método salvar chamado!');
     this.zone.run(() => {
       console.log('Método salvar chamado!');
-      console.log(form.value);
+      console.log(this.produto);
     });
   }
   async showSubgrupo() {

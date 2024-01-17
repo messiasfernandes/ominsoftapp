@@ -15,6 +15,7 @@ import {DialogService, DynamicDialogConfig, DynamicDialogModule} from 'primeng/d
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { TabViewModule } from 'primeng/tabview';
+import { DropdownModule } from 'primeng/dropdown';
 @NgModule({
   declarations: [],
   imports: [
@@ -33,7 +34,9 @@ import { TabViewModule } from 'primeng/tabview';
     PanelModule,
     ImageModule,
     InputNumberModule,
-    TabViewModule
+    TabViewModule,
+     DropdownModule
+
   ],
   providers:[MessageService, ConfirmationService,DialogService,DynamicDialogConfig]
 

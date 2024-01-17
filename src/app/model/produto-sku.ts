@@ -1,4 +1,5 @@
 import { Atributo } from "./atributo"
+import { Medida } from "./medida"
 
 export class ProdutoSku {
   id: number
@@ -7,7 +8,7 @@ export class ProdutoSku {
   imagemPrincipal: string
   mutiplicador: number
   desconto: number
-  medida: string
+  medida: Medida
   caracteristica: string
   atributos: Atributo[]=[]
   precodeVenda: number
