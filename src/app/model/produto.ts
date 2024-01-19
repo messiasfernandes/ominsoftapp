@@ -3,6 +3,7 @@ import { ProdutoSku } from "./produto-sku"
 import { Subgrupo } from "./subgrupo"
 
 export class Produto {
+  id: number;
   nomeProduto : string
   marcaProduto?: MarcaProduto
   precovenda?: number

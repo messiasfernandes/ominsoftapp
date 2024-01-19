@@ -37,31 +37,31 @@ export class ProdutoService {
   detalhar(id: number): Observable<Produto> {
     return this.http.get<Produto>(`${config.baseurl}produtos/${id}`);
   }
-
-  async openSubgrupoDialog(): Promise<Subgrupo> {
-    return new Promise<Subgrupo>((resolve, reject) => {
-      const sub = new Subgrupo();
-
-      const ref = this.dialogService.open(ListasubgrupodialogComponent, {
-        header: 'Lista de SubCategorias',
-        width: '90%',
-        modal: true,
-        styleClass: "{'960px': '70vw'}",
-        contentStyle: { overflow: 'hidden' },
-        resizable: false,
-        baseZIndex: 10000,
-      });
-
-      ref.onClose.subscribe((subgrupo: Subgrupo) => {
-        if (subgrupo) {
-          console.log(subgrupo);
-          resolve(subgrupo);
-        } else {
-          reject(); // ou resolve(null) se preferir
-        }
-      });
-    });
+  salvar(objeto: Produto): Observable<Produto> {
+    const headers = new HttpHeaders().append(
+      'Content-Type',
+      'application/json'
+    );
+    const resposta = this.http.post<Produto>(
+      `${config.baseurl}produtos`,
+      objeto,
+      { headers }
+    );
+    return resposta;
   }
+  editar(objeto: Produto): Observable<any> {
+    const headers = new HttpHeaders().append(
+      'Content-Type',
+      'application/json'
+    );
+
+    return this.http.put<Produto>(
+      `${config.baseurl}produtos/${objeto.id}`,
+      objeto,
+      { headers, observe: 'response' }
+    );
+  }
+
   GerarEn13(): Observable<string> {
     return this.http.post<string>(
       `${config.baseurl}produtos/gerarean13`,

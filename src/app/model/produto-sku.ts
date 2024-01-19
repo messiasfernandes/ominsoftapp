@@ -8,12 +8,14 @@ export class ProdutoSku {
   imagemPrincipal: string
   mutiplicador: number
   desconto: number
+  qtdePorSku: number
   medida: Medida
+
   caracteristica: string
   atributos: Atributo[]=[]
   precodeVenda: number
   valordeVenda: number
-  qtdeporSku: number
+
 
 }
 

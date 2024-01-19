@@ -39,12 +39,12 @@ export class CadadastroprodutoComponent implements OnInit {
   pictureImageTxt = 'Escolha uma imagem';
   ref: DynamicDialogRef;
   url: string = '';
-  atributosdigitados: string = '';
-  coresDigitadas: string = '';
-  coresArray: string[] = [];
+
+
+
   novoTipo: string = '';
   novoValor: string = '';
-  linhasArray: string[] = [];
+
   produtosksu: any[] = [];
   produtosku = new ProdutoSku();
   atributo = new Atributo();
@@ -64,7 +64,6 @@ export class CadadastroprodutoComponent implements OnInit {
     private form: FormBuilder,
     private idParametro: ActivatedRoute,
     private formDialog: FormdialogService
-
   ) {
     this.medidas=Object.keys(Medida).map(key => ({ label: Medida[key], value: key }));
 
@@ -90,6 +89,7 @@ export class CadadastroprodutoComponent implements OnInit {
       // Execute este bloco de código apenas se proutos_skus estiver vazio
       for (var x in this.atributos) {
         this.produtosku.caracteristica = this.atributos[x];
+        this.atributo.tipo= this.novoTipo;
         this.atributo.valor = this.produtosku.caracteristica;
         console.log(this.produtosku.caracteristica);
         this.produtosku.atributos.push(this.atributo);
@@ -103,15 +103,17 @@ export class CadadastroprodutoComponent implements OnInit {
     } else {
       this.atributos = this.novoValor.split(',').map((at) => at.trim());
       for (let x = 0; x < this.atributos.length; x++) {
-        // Verifica se há um valor existente, se sim, concatena com o novo valor usando "|"
+        // Verifica se há um valor existente, se sim, concatena com o novo valor usando "|
+        this.atributo.tipo= this.novoTipo;
         this.atributo.valor = this.atributos[x];
         this.produto.proutos_skus[x].caracteristica =
           this.produto.proutos_skus[x].caracteristica
           ? this.produto.proutos_skus[x].caracteristica + ' | ' + this.atributos[x]
           : this.atributos[x];
           this.produto.proutos_skus[x].atributos.push(this.atributo)
-         this.produto.proutos_skus[x].medida=this.valorSelecionado
 
+         this.produto.proutos_skus[x].medida=this.valorSelecionado
+ console.log(this.produto.proutos_skus[x].medida)
           console.log(this.atributo)
 
           console.log(this.produtosku);
@@ -130,32 +132,16 @@ export class CadadastroprodutoComponent implements OnInit {
 removerLinha(index: number){
   this.produto.proutos_skus.splice(index, 1);
 }
-  adicionarLinha() {
-    // Concatenar tipo e valor e adicionar ao array
-    const linha = `${this.novoTipo}-${this.novoValor}`;
-    this.novoValor.split(',').map((cor) => cor.trim());
-    this.linhasArray.push(linha);
 
-    // Limpar os campos de entrada
-    this.novoTipo = '';
-    this.novoValor = '';
-  }
   limpavalores() {
     this.atributos. splice(0, this.atributos.length);
     this.novoValor='';
+    this.novoTipo='';
   }
-  adicionarCores() {
-    // Dividir a string de cores e adicionar ao array
-    const novasCores = this.coresDigitadas.split(',').map((cor) => cor.trim());
-    console.log(novasCores);
-    // Adicionar ao array existente
-    this.coresArray = this.coresArray.concat(novasCores);
 
-    // Limpar a entrada
-    this.coresDigitadas = '';
-  }
 
   carregarProduto(codigoproduto: number) {
+
     console.log('inicou');
     this.produtoService.detalhar(codigoproduto).subscribe((data) => {
       console.log(data);
@@ -165,9 +151,15 @@ removerLinha(index: number){
       if (data.marcaProduto != null) {
         this.marcaProduto = data.marcaProduto;
       }
+      if (data.proutos_skus.length>0){
+
+      }
+      this.tempDataTable?.initRowEdit({});
       this.produto = data;
       this.getbuscarfoto(this.produto.imagemPrincipal);
+
     });
+
   }
   upLoad() {
     let input = document.createElement('input');
@@ -206,15 +198,18 @@ removerLinha(index: number){
     }
     return this.url;
   }
-  criarFormulario() {}
-  geraform() {}
+
   salvar(form: NgForm) {
 
-    console.log('Método salvar chamado!');
-    this.zone.run(() => {
-      console.log('Método salvar chamado!');
-      console.log(this.produto);
-    });
+    this.produto.subgrupo= this.subgrupo;
+
+      this.produtoService.salvar(this.produto).subscribe();
+
+
+
+    form.reset();
+    this.produto = new Produto();
+
   }
   async showSubgrupo() {
     try {
@@ -225,7 +220,7 @@ removerLinha(index: number){
       console.log('Operação cancelada ou ocorreu um erro.');
     }
   }
-  gerarEan13(produtosku: any, indice :number){
+  gerarEan13(indice :number){
 
 
     this.produtoService.GerarEn13().subscribe(
