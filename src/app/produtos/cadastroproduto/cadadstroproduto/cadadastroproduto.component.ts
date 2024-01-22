@@ -100,7 +100,8 @@ export class CadadastroprodutoComponent implements OnInit {
         this.atributo = new Atributo();
       }
 
-    } else {
+    }
+    if(this.produto.proutos_skus.length >0){
       this.atributos = this.novoValor.split(',').map((at) => at.trim());
       for (let x = 0; x < this.atributos.length; x++) {
         // Verifica se há um valor existente, se sim, concatena com o novo valor usando "|
@@ -120,6 +121,25 @@ export class CadadastroprodutoComponent implements OnInit {
           this.produtosku = new ProdutoSku();
         this.atributo = new Atributo();
       }
+      if(this.produto.id!= null && this.produto.proutos_skus.length >0 ){
+        this.atributos = this.novoValor.split(',').map((at) => at.trim());
+        for (let x = 0; x < this.atributos.length; x++) {
+          // Verifica se há um valor existente, se sim, concatena com o novo valor usando "|
+          this.atributo.tipo= this.novoTipo;
+          this.atributo.valor = this.atributos[x];
+          this.produto.proutos_skus[x].caracteristica =
+            this.produto.proutos_skus[x].caracteristica
+            ? this.produto.proutos_skus[x].caracteristica + ' | ' + this.atributos[x]
+            : this.atributos[x];
+            this.produto.proutos_skus[x].atributos.push(this.atributo)
+
+            console.log(this.atributo)
+
+            console.log(this.produtosku);
+            this.produtosku = new ProdutoSku();
+          this.atributo = new Atributo()
+      }
+    }
 
       console.log("Já existem objetos em proutos_skus. Não foi adicionado nada.");
 
