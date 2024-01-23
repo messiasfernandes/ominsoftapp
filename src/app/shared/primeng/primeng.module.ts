@@ -16,6 +16,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { TabViewModule } from 'primeng/tabview';
 import { DropdownModule } from 'primeng/dropdown';
+import {ToastModule} from 'primeng/toast';
+import {MessageModule} from 'primeng/message';
 @NgModule({
   declarations: [],
   imports: [
@@ -35,7 +37,9 @@ import { DropdownModule } from 'primeng/dropdown';
     ImageModule,
     InputNumberModule,
     TabViewModule,
-     DropdownModule
+     DropdownModule,
+     MessageModule,
+     ToastModule
 
   ],
   providers:[MessageService, ConfirmationService,DialogService,DynamicDialogConfig]

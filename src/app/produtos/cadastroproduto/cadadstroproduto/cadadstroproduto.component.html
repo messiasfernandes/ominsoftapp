@@ -154,9 +154,9 @@
 
                     <th  style="width: 25%;" >Cararcterisca</th>
 
-                    <th style="width: 35%;"  >Gtin/Ean 13</th>
+                    <th style="width: 40%;"  >Gtin/Ean 13</th>
                     <th style="width: 5%;">Qtde </th>
-                    <th style="width: 5%;" >Multiplicador</th>
+                    <th >Multiplicador</th>
                     <th style="width: 10%;"  >Price</th>
                     <th style="width: 20%;" >Unidade </th>
                   </tr>
@@ -197,7 +197,10 @@
                       <p-cellEditor>
                         <ng-template pTemplate="input">
 
-                          <input pInputText type="number" [(ngModel)]="product.qtdePorSku" name="qtdePorSku">
+
+                          <p-inputNumber [(ngModel)]="product.qtdePorSku" [showButtons]="true"
+                          spinnerMode="horizontal" [step]="1" [min]="0" [max]="10000"
+                          decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" ></p-inputNumber>
 
                         </ng-template>
                         <ng-template pTemplate="output">
@@ -259,8 +262,7 @@
                     <td>
                       <div class="flex align-items-center justify-content-center gap-2">
                         <button pButton pRipple type="button"    icon="pi pi-pencil" pInitEditableRow
-                          class="p-button-rounded p-button-text"></button>
-                        <button pButton pRipple type="button" icon="pi pi-check"
+
                           class="p-button-rounded p-button-text p-button-success mr-2"></button>
                         <button pButton pRipple type="button" icon="fa-solid fa-trash" (click)="removerLinha(ri)"
                           class=" p-button-danger mr2 p-button-text "></button>

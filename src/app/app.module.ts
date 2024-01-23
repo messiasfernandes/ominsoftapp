@@ -17,6 +17,7 @@ import { MessageComponent } from './shared/message/message.component';
 import { ProdutoService } from './services/produtoservice.service';
 import { MessageService } from 'primeng/api';
 import { ListasubgrupodialogComponent } from './subgrupo/listasubgrupodialog/listasubgrupodialog.component';
+import { SubgrupoService } from './services/subgrupo.service';
 
 
 
@@ -48,7 +49,7 @@ registerLocaleData(localePt, 'pt-BR');
   providers: [
     { provide: LOCALE_ID, useValue: 'pt' },
     { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' },
-    ProdutoService,    MessageService,
+    ProdutoService,    MessageService,SubgrupoService
   ],
   bootstrap: [AppComponent]
 })

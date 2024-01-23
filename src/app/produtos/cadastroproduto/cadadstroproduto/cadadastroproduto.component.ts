@@ -22,8 +22,11 @@ import { ListasubgrupodialogComponent } from 'src/app/subgrupo/listasubgrupodial
 import { FormdialogService } from 'src/app/services/formdialog.service';
 import { ProdutoSku } from 'src/app/model/produto-sku';
 import { Medida } from 'src/app/model/medida';
-import { SelectItem } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
 import { HttpResponse } from '@angular/common/http';
+import { ErrohandlerService } from 'src/app/services/errohandler.service';
+import { catchError } from 'rxjs/internal/operators/catchError';
+import { throwError } from 'rxjs/internal/observable/throwError';
 
 @Component({
   selector: 'app-cadadstroproduto',
@@ -62,7 +65,10 @@ export class CadadastroprodutoComponent implements OnInit {
     public dialogService: DialogService,
     private form: FormBuilder,
     private idParametro: ActivatedRoute,
-    private formDialog: FormdialogService
+    private formDialog: FormdialogService,
+    private errorHandler: ErrohandlerService,
+    private messageService : MessageService
+
   ) {
     this.medidas = Object.keys(Medida).map((key) => ({
       label: Medida[key],
@@ -122,32 +128,35 @@ export class CadadastroprodutoComponent implements OnInit {
         this.produtosku = new ProdutoSku();
         this.atributo = new Atributo();
       }
-      if (this.produto.id != null && this.produto.proutos_skus.length > 0) {
-        console.log('Dentro do bloco if');
-        this.atributos = this.novoValor.split(',').map((at) => at.trim());
-        for (let x = 0; x < this.atributos.length; x++) {
-          const meutipo = this.produto.proutos_skus[x].medida;
-          console.log(meutipo);
-          this.atributo.tipo = this.novoTipo;
-          this.atributo.valor = this.atributos[x];
-          this.produto.proutos_skus[x].caracteristica = this.produto
-            .proutos_skus[x].caracteristica
-            ? this.produto.proutos_skus[x].caracteristica +
-              ' | ' +
-              this.atributos[x]
-            : this.atributos[x];
-          this.produto.proutos_skus[x].medida = meutipo;
-          this.produto.proutos_skus[x].atributos.push(this.atributo);
 
-          console.log(this.atributo);
-
-          console.log(this.produtosku);
-          this.produtosku = new ProdutoSku();
-          this.atributo = new Atributo();
-        }
       }
       console.log(this.produto);
+
+    if (this.produto.id != null && this.produto.proutos_skus.length > 0) {
+      console.log('Dentro do bloco if');
+      this.atributos = this.novoValor.split(',').map((at) => at.trim());
+      for (let x = 0; x < this.atributos.length; x++) {
+        const meutipo = this.produto.proutos_skus[x].medida;
+        console.log(meutipo);
+        this.atributo.tipo = this.novoTipo;
+        this.atributo.valor = this.atributos[x];
+        this.produto.proutos_skus[x].caracteristica = this.produto
+          .proutos_skus[x].caracteristica
+          ? this.produto.proutos_skus[x].caracteristica +
+            ' | ' +
+            this.atributos[x]
+          : this.atributos[x];
+        this.produto.proutos_skus[x].medida = meutipo;
+        this.produto.proutos_skus[x].atributos.push(this.atributo);
+
+        console.log(this.atributo);
+
+        console.log(this.produtosku);
+        this.produtosku = new ProdutoSku();
+        this.atributo = new Atributo();
+      }
     }
+    this.limpavalores();
   }
 
   removerLinha(index: number) {
@@ -221,28 +230,28 @@ export class CadadastroprodutoComponent implements OnInit {
     if (this.produto.id != null) {
       this.produtoService
         .editar(this.produto)
-        //  .pipe(
-        //    catchError((erro: any) => {
-        //    return throwError(() => this.errorHandler.erroHandler(erro));
-        //   })
-        //    )
+          .pipe(
+           catchError((erro: any) => {
+           return throwError(() => this.errorHandler.erroHandler(erro));
+          })
+          )
         .subscribe((response: HttpResponse<any>) => {
           const statusCode = response.status;
           console.log(statusCode);
           if (statusCode === 200) {
-            // this.messageService.add({
-            //    severity: 'info',
-            //    detail: 'Produto editado com sucesso!',
-            //    });
+             this.messageService.add({
+                severity: 'info',
+               detail: 'Produto editado com sucesso!',
+              });
           }
         });
     } else {
       console.log(this.produto);
       this.produtoService.salvar(this.produto).subscribe();
-      //  this.messageService.add({
-      //     severity: 'success',
-      //   detail: 'Produto salvo com sucesso!',
-      //  });
+        this.messageService.add({
+           severity: 'success',
+         detail: 'Produto salvo com sucesso!',
+        });
     }
     form.reset();
     this.router.navigate(['/produtos']);
