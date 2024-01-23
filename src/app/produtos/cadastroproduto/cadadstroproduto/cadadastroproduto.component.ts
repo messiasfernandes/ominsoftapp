@@ -23,6 +23,7 @@ import { FormdialogService } from 'src/app/services/formdialog.service';
 import { ProdutoSku } from 'src/app/model/produto-sku';
 import { Medida } from 'src/app/model/medida';
 import { SelectItem } from 'primeng/api';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-cadadstroproduto',
@@ -39,8 +40,6 @@ export class CadadastroprodutoComponent implements OnInit {
   pictureImageTxt = 'Escolha uma imagem';
   ref: DynamicDialogRef;
   url: string = '';
-
-
 
   novoTipo: string = '';
   novoValor: string = '';
@@ -65,13 +64,13 @@ export class CadadastroprodutoComponent implements OnInit {
     private idParametro: ActivatedRoute,
     private formDialog: FormdialogService
   ) {
-    this.medidas=Object.keys(Medida).map(key => ({ label: Medida[key], value: key }));
-
+    this.medidas = Object.keys(Medida).map((key) => ({
+      label: Medida[key],
+      value: key,
+    }));
   }
 
   ngOnInit() {
-
-
     let codigoproduto = this.idParametro.snapshot.params['id'];
 
     if (codigoproduto) {
@@ -89,7 +88,7 @@ export class CadadastroprodutoComponent implements OnInit {
       // Execute este bloco de código apenas se proutos_skus estiver vazio
       for (var x in this.atributos) {
         this.produtosku.caracteristica = this.atributos[x];
-        this.atributo.tipo= this.novoTipo;
+        this.atributo.tipo = this.novoTipo;
         this.atributo.valor = this.produtosku.caracteristica;
         console.log(this.produtosku.caracteristica);
         this.produtosku.atributos.push(this.atributo);
@@ -99,72 +98,69 @@ export class CadadastroprodutoComponent implements OnInit {
         this.produtosku = new ProdutoSku();
         this.atributo = new Atributo();
       }
-
     }
-    if(this.produto.proutos_skus.length >0 && this.produto.id==null){
+    if (this.produto.proutos_skus.length > 0 && this.produto.id === null) {
       this.atributos = this.novoValor.split(',').map((at) => at.trim());
       for (let x = 0; x < this.atributos.length; x++) {
         // Verifica se há um valor existente, se sim, concatena com o novo valor usando "|
-        this.atributo.tipo= this.novoTipo;
+        this.atributo.tipo = this.novoTipo;
         this.atributo.valor = this.atributos[x];
-        this.produto.proutos_skus[x].caracteristica =
-          this.produto.proutos_skus[x].caracteristica
-          ? this.produto.proutos_skus[x].caracteristica + ' | ' + this.atributos[x]
+        this.produto.proutos_skus[x].caracteristica = this.produto.proutos_skus[
+          x
+        ].caracteristica
+          ? this.produto.proutos_skus[x].caracteristica +
+            ' | ' +
+            this.atributos[x]
           : this.atributos[x];
-          this.produto.proutos_skus[x].atributos.push(this.atributo)
+        this.produto.proutos_skus[x].atributos.push(this.atributo);
 
-         this.produto.proutos_skus[x].medida=this.valorSelecionado
- console.log(this.produto.proutos_skus[x].medida)
-          console.log(this.atributo)
+        this.produto.proutos_skus[x].medida = this.valorSelecionado;
+        console.log(this.produto.proutos_skus[x].medida);
+        console.log(this.atributo);
 
-          console.log(this.produtosku);
-          this.produtosku = new ProdutoSku();
+        console.log(this.produtosku);
+        this.produtosku = new ProdutoSku();
         this.atributo = new Atributo();
       }
-      if(this.produto.id!= null && this.produto.proutos_skus.length >0 ){
-        window.alert("passou")
+      if (this.produto.id != null && this.produto.proutos_skus.length > 0) {
+        console.log('Dentro do bloco if');
         this.atributos = this.novoValor.split(',').map((at) => at.trim());
         for (let x = 0; x < this.atributos.length; x++) {
           const meutipo = this.produto.proutos_skus[x].medida;
-         console.log(meutipo)
-          this.atributo.tipo= this.novoTipo;
+          console.log(meutipo);
+          this.atributo.tipo = this.novoTipo;
           this.atributo.valor = this.atributos[x];
-          this.produto.proutos_skus[x].caracteristica =
-            this.produto.proutos_skus[x].caracteristica
-            ? this.produto.proutos_skus[x].caracteristica + ' | ' + this.atributos[x]
+          this.produto.proutos_skus[x].caracteristica = this.produto
+            .proutos_skus[x].caracteristica
+            ? this.produto.proutos_skus[x].caracteristica +
+              ' | ' +
+              this.atributos[x]
             : this.atributos[x];
-           this.produto.proutos_skus[x].medida= meutipo;
-            this.produto.proutos_skus[x].atributos.push(this.atributo)
+          this.produto.proutos_skus[x].medida = meutipo;
+          this.produto.proutos_skus[x].atributos.push(this.atributo);
 
-            console.log(this.atributo)
+          console.log(this.atributo);
 
-            console.log(this.produtosku);
-            this.produtosku = new ProdutoSku();
-          this.atributo = new Atributo()
+          console.log(this.produtosku);
+          this.produtosku = new ProdutoSku();
+          this.atributo = new Atributo();
+        }
       }
+      console.log(this.produto);
     }
-
-      console.log("Já existem objetos em proutos_skus. Não foi adicionado nada.");
-
   }
 
-  console.log(this.produto.proutos_skus);
-  this.limpavalores();
-}
-
-removerLinha(index: number){
-  this.produto.proutos_skus.splice(index, 1);
-}
+  removerLinha(index: number) {
+    this.produto.proutos_skus.splice(index, 1);
+  }
 
   limpavalores() {
-    this.atributos. splice(0, this.atributos.length);
-    this.novoValor='';
-    this.novoTipo='';
+    this.atributos.splice(0, this.atributos.length);
+    this.novoValor = '';
+    this.novoTipo = '';
   }
 
-
   carregarProduto(codigoproduto: number) {
-
     console.log('inicou');
     this.produtoService.detalhar(codigoproduto).subscribe((data) => {
       console.log(data);
@@ -174,15 +170,12 @@ removerLinha(index: number){
       if (data.marcaProduto != null) {
         this.marcaProduto = data.marcaProduto;
       }
-      if (data.proutos_skus.length>0){
-
+      if (data.proutos_skus.length > 0) {
       }
       this.tempDataTable?.initRowEdit({});
       this.produto = data;
       this.getbuscarfoto(this.produto.imagemPrincipal);
-
     });
-
   }
   upLoad() {
     let input = document.createElement('input');
@@ -223,16 +216,36 @@ removerLinha(index: number){
   }
 
   salvar(form: NgForm) {
+    this.produto.subgrupo = this.subgrupo;
 
-    this.produto.subgrupo= this.subgrupo;
-
+    if (this.produto.id != null) {
+      this.produtoService
+        .editar(this.produto)
+        //  .pipe(
+        //    catchError((erro: any) => {
+        //    return throwError(() => this.errorHandler.erroHandler(erro));
+        //   })
+        //    )
+        .subscribe((response: HttpResponse<any>) => {
+          const statusCode = response.status;
+          console.log(statusCode);
+          if (statusCode === 200) {
+            // this.messageService.add({
+            //    severity: 'info',
+            //    detail: 'Produto editado com sucesso!',
+            //    });
+          }
+        });
+    } else {
+      console.log(this.produto);
       this.produtoService.salvar(this.produto).subscribe();
-
-
-
+      //  this.messageService.add({
+      //     severity: 'success',
+      //   detail: 'Produto salvo com sucesso!',
+      //  });
+    }
     form.reset();
-    this.produto = new Produto();
-
+    this.router.navigate(['/produtos']);
   }
   async showSubgrupo() {
     try {
@@ -243,15 +256,10 @@ removerLinha(index: number){
       console.log('Operação cancelada ou ocorreu um erro.');
     }
   }
-  gerarEan13(indice :number){
-
-
-    this.produtoService.GerarEn13().subscribe(
-    (codigoean: any)=>{
-      console.log(codigoean.ean13+ "meu codigo")
-      this.produto.proutos_skus[indice].codigoEan13Sku = codigoean.ean13
-
-    }
-  )
+  gerarEan13(indice: number) {
+    this.produtoService.GerarEn13().subscribe((codigoean: any) => {
+      console.log(codigoean.ean13 + 'meu codigo');
+      this.produto.proutos_skus[indice].codigoEan13Sku = codigoean.ean13;
+    });
   }
 }
