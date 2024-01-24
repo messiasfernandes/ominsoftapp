@@ -57,6 +57,7 @@ export class CadadastroprodutoComponent implements OnInit {
   valoresEnum = Object.values(Medida);
   valorSelecionado: Medida;
   @ViewChild('tempDataTable') tempDataTable: any;
+  bloqueiaboatao = false;
   constructor(
     private arquivoService: ArquivoService,
     private zone: NgZone,
@@ -86,77 +87,44 @@ export class CadadastroprodutoComponent implements OnInit {
     }
   }
   acdiconarAtributo() {
-    this.tempDataTable?.initRowEdit({});
-    this.atributos = this.novoValor.split(',').map((at) => at.trim());
+
+    this.atributos = this.novoTipo.split(';').map((at) => at.trim());
     console.log(this.novoValor);
+    let caracteristicaConcatenada = '';
 
-    if (this.produto.proutos_skus.length === 0) {
-      // Execute este bloco de código apenas se proutos_skus estiver vazio
-      for (var x in this.atributos) {
-        this.produtosku.caracteristica = this.atributos[x];
-        this.atributo.tipo = this.novoTipo;
-        this.atributo.valor = this.produtosku.caracteristica;
-        console.log(this.produtosku.caracteristica);
-        this.produtosku.atributos.push(this.atributo);
+      for (let i = 0; i < this.atributos.length; i++) {
 
-        this.produto.proutos_skus.push(this.produtosku);
-        console.log(this.atributo);
-        this.produtosku = new ProdutoSku();
+
+        // Dividir cada atributo em chave e valor
+        const partes = this.atributos[i].split(':');
+        if (partes.length === 2) {
+          console.log(partes)
+          // Atribuir valores ao objeto Atributo
+         this. atributo.tipo = partes[0].trim();
+     this.atributo.valor    = partes[1].trim();
+          console.log(this.atributo);
+
+          // Atribuir valores ao objeto ProdutoSku
+
+          if (caracteristicaConcatenada !== '') {
+            caracteristicaConcatenada += ' | ';
+          }
+          caracteristicaConcatenada  += `${this.atributo.tipo}: ${this.atributo.valor} `;
+         this. produtosku.atributos.push(this.atributo);
         this.atributo = new Atributo();
-      }
-    }
-    if (this.produto.proutos_skus.length > 0 && this.produto.id === null) {
-      this.atributos = this.novoValor.split(',').map((at) => at.trim());
-      for (let x = 0; x < this.atributos.length; x++) {
-        // Verifica se há um valor existente, se sim, concatena com o novo valor usando "|
-        this.atributo.tipo = this.novoTipo;
-        this.atributo.valor = this.atributos[x];
-        this.produto.proutos_skus[x].caracteristica = this.produto.proutos_skus[
-          x
-        ].caracteristica
-          ? this.produto.proutos_skus[x].caracteristica +
-            ' | ' +
-            this.atributos[x]
-          : this.atributos[x];
-        this.produto.proutos_skus[x].atributos.push(this.atributo);
+          // Adicionar à lista de proutos_skus
 
-        this.produto.proutos_skus[x].medida = this.valorSelecionado;
-        console.log(this.produto.proutos_skus[x].medida);
-        console.log(this.atributo);
-
-        console.log(this.produtosku);
-        this.produtosku = new ProdutoSku();
-        this.atributo = new Atributo();
+        }
+      this.produtosku.caracteristica= caracteristicaConcatenada;
       }
 
-      }
-      console.log(this.produto);
+      this.produto.proutos_skus.push(this.produtosku);
+  // }
+    console.log(this.produtosku);
+    this.produtosku = new ProdutoSku();
+    console.log(this.produto)
+    this.limpavalores()
 
-    if (this.produto.id != null && this.produto.proutos_skus.length > 0) {
-      console.log('Dentro do bloco if');
-      this.atributos = this.novoValor.split(',').map((at) => at.trim());
-      for (let x = 0; x < this.atributos.length; x++) {
-        const meutipo = this.produto.proutos_skus[x].medida;
-        console.log(meutipo);
-        this.atributo.tipo = this.novoTipo;
-        this.atributo.valor = this.atributos[x];
-        this.produto.proutos_skus[x].caracteristica = this.produto
-          .proutos_skus[x].caracteristica
-          ? this.produto.proutos_skus[x].caracteristica +
-            ' | ' +
-            this.atributos[x]
-          : this.atributos[x];
-        this.produto.proutos_skus[x].medida = meutipo;
-        this.produto.proutos_skus[x].atributos.push(this.atributo);
-
-        console.log(this.atributo);
-
-        console.log(this.produtosku);
-        this.produtosku = new ProdutoSku();
-        this.atributo = new Atributo();
-      }
-    }
-    this.limpavalores();
   }
 
   removerLinha(index: number) {
@@ -225,7 +193,9 @@ export class CadadastroprodutoComponent implements OnInit {
   }
 
   salvar(form: NgForm) {
+console.log(this.produto)
     this.produto.subgrupo = this.subgrupo;
+    this.produto.marcaProduto= this.marcaProduto;
 
     if (this.produto.id != null) {
       this.produtoService
@@ -260,6 +230,16 @@ export class CadadastroprodutoComponent implements OnInit {
     try {
       this.subgrupo = await this.formDialog.openSubgrupoDialog();
       console.log('Subgrupo Selecionado:', this.subgrupo);
+      // Agora você pode usar o subgrupoSelecionado como necessário.
+    } catch (error) {
+      console.log('Operação cancelada ou ocorreu um erro.');
+    }
+  }
+
+  async shoMarca() {
+    try {
+      this.marcaProduto = await this.formDialog.openMarcaProdutoDiagoialog();
+      console.log('Subgrupo Selecionado:', this.marcaProduto);
       // Agora você pode usar o subgrupoSelecionado como necessário.
     } catch (error) {
       console.log('Operação cancelada ou ocorreu um erro.');

@@ -28,7 +28,7 @@
 
                         <label for="marca">Marca</label>
                       </span>
-                      <button pButton pRipple type="button" icon="pi pi-plus" pTooltip="Adicionar Marca"
+                      <button pButton pRipple type="button" (click)="shoMarca()" icon="pi pi-plus" pTooltip="Adicionar Marca"
                         class="p-button-lg  "></button>
                     </div>
                   </div>
@@ -124,31 +124,25 @@
         </p-tabPanel>
         <p-tabPanel header="Varições">
           <div class="grid p-fluid p-formgroup-inline">
-            <div class="col-12 md:col-6 lg:col-6 p-fluid">
+            <div class="col-12 md:col-6 lg:col-8 p-fluid">
               <span class="p-float-label">
                 <input type="text" id="inptproduto" pInputText required="true" pInputText name="novoTipo"
-                  [(ngModel)]="novoTipo" />
+                  [(ngModel)]="novoTipo" placeholder="Ex : Cor: azul; Tamanho: p: tamanho:38" />
 
-                <label for="inptproduto">Tipo</label>
+                <label for="inptproduto">Varicões</label>
               </span>
             </div>
 
-            <div class="col-12 md:col-6 lg:col-5 p-fluid">
-              <span class="p-float-label">
-                <input type="text" id="marca" pInputText name="novoValor" [(ngModel)]="novoValor" />
 
-                <label for="marca">Valor</label>
-              </span>
-            </div>
-            <div class="col-12 md:col-6 lg:col-1">
-              <button pButton pRipple icon="pi pi-plus" type="button" (click)="acdiconarAtributo()"
+            <div class="col-12 md:col-6 lg:col-2">
+              <button pButton pRipple icon="pi pi-plus" type="button" label="Adicionar" (click)="acdiconarAtributo()"
                 pTooltip="Adicionar atributos" class="p-button-success p-button-lg"></button>
             </div>
           </div>
           <div class="grid">
             <div class="col-12">
-            <p-table [value]=" produto.proutos_skus" dataKey="id" editMode="row" [resizableColumns]="true"  dataKey="Id" styleClass="p-datatable-striped "
-                responsiveLayout="stack" #tempDataTable>
+            <p-table #tempDataTable [value]=" produto.proutos_skus" dataKey="id" editMode="row" [resizableColumns]="true"  dataKey="Id" styleClass="p-datatable-striped "
+                responsiveLayout="stack" >
                 <ng-template pTemplate="header">
                   <tr >
 

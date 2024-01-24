@@ -1,5 +1,5 @@
 export class Estoque {
-  id: number;
-  quantidade : number;
+  id: number= null
+  quantidade : number=0
 }
 

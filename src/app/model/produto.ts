@@ -1,3 +1,4 @@
+import { Estoque } from "./estoque";
 import { MarcaProduto } from "./marcaproduto"
 import { ProdutoSku } from "./produto-sku"
 import { Subgrupo } from "./subgrupo"
@@ -14,6 +15,7 @@ export class Produto {
   subgrupo?: Subgrupo
   tipoproduto?: string
   codigofabricante: string
+  estoque=  new Estoque();
   proutos_skus : ProdutoSku[]=[]
 }
 
