@@ -255,9 +255,9 @@
                     </td>
                     <td>
                       <div class="flex align-items-center justify-content-center gap-2">
-                        <button pButton pRipple type="button"    icon="pi pi-pencil" pInitEditableRow
+                        <button pButton pRipple type="button"   (click)="showEditarProdutoSlu(ri, product)"    icon="fa-solid fa-pen-to-square" pInitEditableRow
 
-                          class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                          class=" p-button-text p-button-primary mr-2"></button>
                         <button pButton pRipple type="button" icon="fa-solid fa-trash" (click)="removerLinha(ri)"
                           class=" p-button-danger mr2 p-button-text "></button>
                       </div>

@@ -58,6 +58,8 @@ export class MarcaprodutoService {
       { headers, observe: 'response' }
     );
   }
-
+  excluir(id: number): Observable<any> {
+    return this.http.delete(`${config.baseurl}marcas/${id}`);
+  }
 
   }

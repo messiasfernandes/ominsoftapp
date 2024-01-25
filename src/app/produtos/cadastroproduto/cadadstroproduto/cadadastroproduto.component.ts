@@ -226,6 +226,9 @@ console.log(this.produto)
     form.reset();
     this.router.navigate(['/produtos']);
   }
+  async showEditarProdutoSlu(indice: number, produtosku: any){
+    this.produto.proutos_skus[indice] = await this.formDialog.showdialogProdutoSkuEditar(produtosku);
+  }
   async showSubgrupo() {
     try {
       this.subgrupo = await this.formDialog.openSubgrupoDialog();

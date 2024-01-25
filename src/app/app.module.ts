@@ -19,6 +19,9 @@ import { MessageService } from 'primeng/api';
 import { ListasubgrupodialogComponent } from './subgrupo/listasubgrupodialog/listasubgrupodialog.component';
 import { SubgrupoService } from './services/subgrupo.service';
 import { MarcaprodutoDialogComponent } from './marcaproduto/marcaproduto-dialog/marcaproduto-dialog.component';
+import { CadastroMmarcaprodutoDialogComponent } from './marcaproduto/cadastro-mmarcaproduto-dialog/cadastro-mmarcaproduto-dialog.component';
+
+import { EditarProdutoskuDialogComponent } from './produtos/editar-produtosku-dialog/editar-produtosku-dialog.component';
 
 
 
@@ -34,6 +37,9 @@ registerLocaleData(localePt, 'pt-BR');
     MessageComponent,
     ListasubgrupodialogComponent,
     MarcaprodutoDialogComponent,
+    CadastroMmarcaprodutoDialogComponent,
+
+    EditarProdutoskuDialogComponent,
 
 
 
