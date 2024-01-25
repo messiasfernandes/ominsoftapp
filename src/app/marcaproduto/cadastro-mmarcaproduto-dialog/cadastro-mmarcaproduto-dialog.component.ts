@@ -23,16 +23,12 @@ export class CadastroMmarcaprodutoDialogComponent {
 
     public config: DynamicDialogConfig
   ) {
-    //  console.log('config.data:', this.config.data);
-    // console.log('config.data.objetoOriginal:', this.config.data.objetoOriginal);
 
-    //  if (this.config.data.objetoOriginal != null) {
-    // this.subcategoria = this.config.data.objetoOriginal;
-    // }
     if (this.config.data && this.config.data.objetoOriginal != null) {
       this.marcaProduto = this.config.data.objetoOriginal;
     }
   }
+
   salvar(form: NgForm) {
     let erroOcorrido= false;
     if (this.marcaProduto.id != null) {
