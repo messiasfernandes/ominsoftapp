@@ -10,6 +10,27 @@
           </div>
         </p-tabPanel>
         <p-tabPanel header="Atributos">
+          <div class="grid p-fluid p-formgroup-inline">
+            <div class="col-12 md:col-6 lg:col-6 p-fluid">
+              <span class="p-float-label">
+                <input type="text" id="inptproduto" pInputText required="true" pInputText name="tipo"
+                  [(ngModel)]="atributo.tipo" />
+
+                <label for="inptproduto">Tipo</label>
+              </span>
+            </div>
+
+            <div class="col-12 md:col-6 lg:col-5 p-fluid">
+              <span class="p-float-label">
+                <input type="text" id="marca" pInputText name="valor" [(ngModel)]="atributo.valor" />
+
+                <label for="marca">Valor</label>
+              </span>
+            </div>
+            <div class="col-12 md:col-6 lg:col-1">
+              <button pButton pRipple icon="pi pi-plus" type="button" (click)="addAtributo()" pTooltip="Adicionar atributos"
+                class="p-button-success p-button-lg"></button>
+            </div>
           <div class="grid">
             <div class="col-12">
               <p-table [value]="produtoSku.atributos"  responsiveLayout="stack" selectionMode="single">
@@ -34,7 +55,7 @@
               </p-table>
             </div>
           </div>
-
+          </div>
         </p-tabPanel>
       </p-tabView>
     </div>

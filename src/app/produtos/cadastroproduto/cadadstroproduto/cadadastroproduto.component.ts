@@ -87,43 +87,9 @@ export class CadadastroprodutoComponent implements OnInit {
     }
   }
   acdiconarAtributo() {
-
-    this.atributos = this.novoTipo.split(';').map((at) => at.trim());
-    console.log(this.novoValor);
-    let caracteristicaConcatenada = '';
-
-      for (let i = 0; i < this.atributos.length; i++) {
-
-
-        // Dividir cada atributo em chave e valor
-        const partes = this.atributos[i].split(':');
-        if (partes.length === 2) {
-          console.log(partes)
-          // Atribuir valores ao objeto Atributo
-         this. atributo.tipo = partes[0].trim();
-     this.atributo.valor    = partes[1].trim();
-          console.log(this.atributo);
-
-          // Atribuir valores ao objeto ProdutoSku
-
-          if (caracteristicaConcatenada !== '') {
-            caracteristicaConcatenada += ' | ';
-          }
-          caracteristicaConcatenada  += `${this.atributo.tipo}: ${this.atributo.valor} `;
-         this. produtosku.atributos.push(this.atributo);
-        this.atributo = new Atributo();
-          // Adicionar à lista de proutos_skus
-
-        }
-      this.produtosku.caracteristica= caracteristicaConcatenada;
-      }
-
-      this.produto.proutos_skus.push(this.produtosku);
-  // }
-    console.log(this.produtosku);
-    this.produtosku = new ProdutoSku();
-    console.log(this.produto)
-    this.limpavalores()
+    this.tempDataTable?.initRowEdit({});
+    this.produto.proutos_skus= this.produtoService.adicionarAtrituto(this.novoTipo, this.produto);
+   this.limpavalores()
 
   }
 
@@ -132,7 +98,7 @@ export class CadadastroprodutoComponent implements OnInit {
   }
 
   limpavalores() {
-    this.atributos.splice(0, this.atributos.length);
+  //  this.atributos.splice(0, this.atributos.length);
     this.novoValor = '';
     this.novoTipo = '';
   }
@@ -227,10 +193,28 @@ console.log(this.produto)
     this.router.navigate(['/produtos']);
   }
   async showEditarProdutoSlu(indice: number, produtosku: any){
-    this.produto.proutos_skus[indice] = await this.formDialog.showdialogProdutoSkuEditar(produtosku);
-    this.produto.proutos_skus[indice].caracteristica='';
-    console.log(this.produto.proutos_skus[indice] )
-  }
+  //  this.produto.proutos_skus[indice] = await this.formDialog.showdialogProdutoSkuEditar(produtosku);
+  //  this.produto.proutos_skus[indice].caracteristica='';
+ //   console.log(this.produto.proutos_skus[indice] )
+
+    const editedProdutoSku = await this.formDialog.showdialogProdutoSkuEditar(produtosku);
+
+  // Concatenar os valores dos atributos para formar a propriedade 'caracteristica'
+  let caracteristicaConcatenada = '';
+
+
+
+  // Construir a propriedade 'caracteristica' com base nos atributos
+  editedProdutoSku.caracteristica = editedProdutoSku.atributos
+    .map((atributo: any) => `${atributo.tipo}:${atributo.valor}`)
+    .join(' | ');
+
+  // Substituir o objeto no array
+  this.produto.proutos_skus[indice] = editedProdutoSku;
+
+  console.log(this.produto.proutos_skus[indice]);
+}
+
   async showSubgrupo() {
     try {
       this.subgrupo = await this.formDialog.openSubgrupoDialog();
