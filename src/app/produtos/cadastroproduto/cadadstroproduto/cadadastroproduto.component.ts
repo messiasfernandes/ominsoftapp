@@ -228,6 +228,8 @@ console.log(this.produto)
   }
   async showEditarProdutoSlu(indice: number, produtosku: any){
     this.produto.proutos_skus[indice] = await this.formDialog.showdialogProdutoSkuEditar(produtosku);
+    this.produto.proutos_skus[indice].caracteristica='';
+    console.log(this.produto.proutos_skus[indice] )
   }
   async showSubgrupo() {
     try {
