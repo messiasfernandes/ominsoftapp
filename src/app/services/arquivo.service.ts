@@ -26,9 +26,9 @@ export class ArquivoService {
   }
 
   removerArquivo(nomeArquivo: string){
-    window.alert("pasou")
+    window.alert("pasou"+ nomeArquivo)
     return this.http
-    .delete(`${config.baseurl}arquivos/fotos${nomeArquivo}`,)
+    .delete(`${config.baseurl}arquivos/fotos/${nomeArquivo}`,)
     .subscribe(
     () => null);
   }
@@ -38,4 +38,43 @@ export class ArquivoService {
       .post(`${config.baseurl}arquivos`, arquivo);
 
   }
+  capitpurarImagem(file: File):any{
+    var reader = new FileReader();
+    reader.readAsDataURL(file[0]);
+    reader.onload = (event: any) => {
+      console.log(event);
+     return event.target.result;
+
+  }
+}
+adiconarImagem (input:any): string{
+   input = document.createElement('input');
+   let url=''
+  input.type = 'file';
+  input.onchange = (_) => {
+    let arquivo: any = Array.from(input.files as any);
+    const formadata = new FormData();
+    formadata.append('arquivo', arquivo[0]);
+ //   if (arquivo[0].name) {
+ // //    this.removerArquivo(arquivo[0].name);
+ //   }
+ ///   this.produto.imagemPrincipal = arquivo[0].name;
+    var reader = new FileReader();
+    reader.readAsDataURL(arquivo[0]);
+    reader.onload = (event: any) => {
+      console.log(event);
+       url = event.target.result;
+    };
+   this.upload(formadata).subscribe((resposta) => {
+      console.log(resposta);
+
+      url = this.buscarfoto(arquivo[0].name);
+      /// this.produto.imagemproduto = resposta.nomeArquivo;
+    });
+  console.log(url)
+    ///  this.getbuscarfoto(this.produtoVariacao.imagemPrncipal);
+  };
+  input.click();
+return url
+}
 }

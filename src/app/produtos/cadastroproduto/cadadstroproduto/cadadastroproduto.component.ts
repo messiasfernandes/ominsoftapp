@@ -68,8 +68,7 @@ export class CadadastroprodutoComponent implements OnInit {
     private idParametro: ActivatedRoute,
     private formDialog: FormdialogService,
     private errorHandler: ErrohandlerService,
-    private messageService : MessageService
-
+    private messageService: MessageService
   ) {
     this.medidas = Object.keys(Medida).map((key) => ({
       label: Medida[key],
@@ -88,9 +87,11 @@ export class CadadastroprodutoComponent implements OnInit {
   }
   acdiconarAtributo() {
     this.tempDataTable?.initRowEdit({});
-    this.produto.proutos_skus= this.produtoService.adicionarAtrituto(this.novoTipo, this.produto);
-   this.limpavalores()
-
+    this.produto.proutos_skus = this.produtoService.adicionarAtrituto(
+      this.novoTipo,
+      this.produto
+    );
+    this.limpavalores();
   }
 
   removerLinha(index: number) {
@@ -98,7 +99,7 @@ export class CadadastroprodutoComponent implements OnInit {
   }
 
   limpavalores() {
-  //  this.atributos.splice(0, this.atributos.length);
+    //  this.atributos.splice(0, this.atributos.length);
     this.novoValor = '';
     this.novoTipo = '';
   }
@@ -127,16 +128,15 @@ export class CadadastroprodutoComponent implements OnInit {
       let arquivo: any = Array.from(input.files as any);
       const formadata = new FormData();
       formadata.append('arquivo', arquivo[0]);
+
       if (this.produto.imagemPrincipal) {
         this.arquivoService.removerArquivo(this.produto.imagemPrincipal);
       }
+
+
       this.produto.imagemPrincipal = arquivo[0].name;
-      var reader = new FileReader();
-      reader.readAsDataURL(arquivo[0]);
-      reader.onload = (event: any) => {
-        console.log(event);
-        this.url = event.target.result;
-      };
+        this.url = this.arquivoService.capitpurarImagem(arquivo)
+
       this.arquivoService.upload(formadata).subscribe((resposta) => {
         console.log(resposta);
 
@@ -159,61 +159,54 @@ export class CadadastroprodutoComponent implements OnInit {
   }
 
   salvar(form: NgForm) {
-console.log(this.produto)
+    console.log(this.produto);
     this.produto.subgrupo = this.subgrupo;
-    this.produto.marcaProduto= this.marcaProduto;
+    this.produto.marcaProduto = this.marcaProduto;
 
     if (this.produto.id != null) {
       this.produtoService
         .editar(this.produto)
-          .pipe(
-           catchError((erro: any) => {
-           return throwError(() => this.errorHandler.erroHandler(erro));
+        .pipe(
+          catchError((erro: any) => {
+            return throwError(() => this.errorHandler.erroHandler(erro));
           })
-          )
+        )
         .subscribe((response: HttpResponse<any>) => {
           const statusCode = response.status;
           console.log(statusCode);
           if (statusCode === 200) {
-             this.messageService.add({
-                severity: 'info',
-               detail: 'Produto editado com sucesso!',
-              });
+            this.messageService.add({
+              severity: 'info',
+              detail: 'Produto editado com sucesso!',
+            });
           }
         });
     } else {
       console.log(this.produto);
       this.produtoService.salvar(this.produto).subscribe();
-        this.messageService.add({
-           severity: 'success',
-         detail: 'Produto salvo com sucesso!',
-        });
+      this.messageService.add({
+        severity: 'success',
+        detail: 'Produto salvo com sucesso!',
+      });
     }
     form.reset();
     this.router.navigate(['/produtos']);
   }
-  async showEditarProdutoSlu(indice: number, produtosku: any){
-  //  this.produto.proutos_skus[indice] = await this.formDialog.showdialogProdutoSkuEditar(produtosku);
-  //  this.produto.proutos_skus[indice].caracteristica='';
- //   console.log(this.produto.proutos_skus[indice] )
+  async showEditarProdutoSlu(indice: number, produtosku: any) {
+    const editedProdutoSku = await this.formDialog.showdialogProdutoSkuEditar(
+      produtosku
+    );
 
-    const editedProdutoSku = await this.formDialog.showdialogProdutoSkuEditar(produtosku);
+    let caracteristicaConcatenada = '';
 
-  // Concatenar os valores dos atributos para formar a propriedade 'caracteristica'
-  let caracteristicaConcatenada = '';
+    editedProdutoSku.caracteristica = editedProdutoSku.atributos
+      .map((atributo: any) => `${atributo.tipo}:${atributo.valor}`)
+      .join(' | ');
 
+    this.produto.proutos_skus[indice] = editedProdutoSku;
 
-
-  // Construir a propriedade 'caracteristica' com base nos atributos
-  editedProdutoSku.caracteristica = editedProdutoSku.atributos
-    .map((atributo: any) => `${atributo.tipo}:${atributo.valor}`)
-    .join(' | ');
-
-  // Substituir o objeto no array
-  this.produto.proutos_skus[indice] = editedProdutoSku;
-
-  console.log(this.produto.proutos_skus[indice]);
-}
+    console.log(this.produto.proutos_skus[indice]);
+  }
 
   async showSubgrupo() {
     try {
