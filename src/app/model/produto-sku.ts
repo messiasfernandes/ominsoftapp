@@ -1,3 +1,4 @@
+import { Imagemproduto } from './imagemproduto';
 import { Atributo } from "./atributo"
 import { Medida } from "./medida"
 
@@ -15,7 +16,7 @@ export class ProdutoSku {
   atributos: Atributo[]=[]
   precodeVenda: number
   valordeVenda: number
-
+  imagemsproduto:Imagemproduto[]=[]
 
 }
 

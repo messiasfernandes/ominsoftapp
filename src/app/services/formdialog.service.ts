@@ -120,7 +120,7 @@ private ref: DynamicDialogRef;
        },
        modal: true,
        header: 'Editar Marca',
-       width: '70%'
+       width: '80%'
      });
 
     this. ref.onClose.subscribe((objetoEditado:ProdutoSku) => {

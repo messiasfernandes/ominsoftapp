@@ -6,7 +6,7 @@
   width: 100%;
   aspect-ratio: 16/9;
 
-
+  justify-content: flex-start;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,7 +22,11 @@
 
 }
 .picture__img {
+  display: flex;
   max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Isso mantém a proporção da imagem e evita distorções */
+  margin-right: 10px; /* Adiciona margem entre as imagens */
 }
 
 
@@ -42,10 +46,3 @@
   margin: 0 15px;
 }
 
-::ng-deep .no-label>.p-button-label {
-  display: none;
-}
-
-::ng-deep .no-icon>.p-button-icon {
-  display: none;
-}

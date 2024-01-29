@@ -19,6 +19,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import {ToastModule} from 'primeng/toast';
 import {MessageModule} from 'primeng/message';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
+import { ProgressBarModule } from 'primeng/progressbar';
 @NgModule({
   declarations: [],
   imports: [
@@ -41,7 +43,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
      DropdownModule,
      MessageModule,
      ToastModule,
-     ConfirmDialogModule
+     ConfirmDialogModule,
+     ProgressBarModule
 
   ],
   providers:[MessageService, ConfirmationService,DialogService,DynamicDialogConfig]

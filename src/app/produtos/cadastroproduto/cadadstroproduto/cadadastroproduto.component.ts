@@ -197,7 +197,7 @@ export class CadadastroprodutoComponent implements OnInit {
       produtosku
     );
 
-    let caracteristicaConcatenada = '';
+
 
     editedProdutoSku.caracteristica = editedProdutoSku.atributos
       .map((atributo: any) => `${atributo.tipo}:${atributo.valor}`)
