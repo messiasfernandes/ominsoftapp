@@ -119,7 +119,7 @@ private ref: DynamicDialogRef;
          objetoOriginal: produtoSku
        },
        modal: true,
-       header: 'Editar Marca',
+       header: 'Editar Produto',
        width: '80%'
      });
 

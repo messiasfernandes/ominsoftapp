@@ -17,15 +17,15 @@
 
               <div class="h-full  picture">
 
-                <span >
-                  <div  class="col-12" *ngFor="let imagemProduto of produtoSku.imagemsproduto">
-                    <span >
-                    <img [src]="imagemProduto.url" alt=""  class="picture__img" width="180px " height="180px">
 
-                  </span>
+                  <div   *ngFor="let url of urls" class="image-container">
+
+                    <p-image img [src]="url" [preview]="true" class="preview picture__img" width="150px" height="200px"/>
+
+
 
                 </div>
-                </span>
+
 
               </div>
             </div>

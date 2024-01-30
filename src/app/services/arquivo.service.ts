@@ -12,7 +12,7 @@ export class ArquivoService {
   constructor(private http: HttpClient) { }
 
   upload(arquivo: FormData): Observable<any> {
-
+    console.log(arquivo)
     return this.http
       .post(`${config.baseurl}arquivos/fotos`, arquivo);
 

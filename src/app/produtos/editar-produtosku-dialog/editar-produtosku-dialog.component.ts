@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Atributo } from 'src/app/model/atributo';
 import { Imagemproduto } from 'src/app/model/imagemproduto';
 import { ProdutoSku } from 'src/app/model/produto-sku';
+import { ArquivoService } from 'src/app/services/arquivo.service';
 import { ErrohandlerService } from 'src/app/services/errohandler.service';
 import { ProdutoService } from 'src/app/services/produtoservice.service';
 
@@ -19,7 +20,8 @@ export class EditarProdutoskuDialogComponent {
   selectedFiles?: FileList;
   progressInfos: any[] = [];
   message: string[] = [];
-
+  urls?: String[] = [];
+  uri: string = '';
   previews: string[] = [];
   imageInfos?: Observable<any>;
   constructor(
@@ -27,10 +29,13 @@ export class EditarProdutoskuDialogComponent {
     public ref: DynamicDialogRef,
     private errorHandler: ErrohandlerService,
     private serviceProduto: ProdutoService,
-    public config: DynamicDialogConfig
+    public config: DynamicDialogConfig,
+    private arquivoService: ArquivoService
   ) {
     if (this.config.data && this.config.data.objetoOriginal != null) {
       this.produtoSku = this.config.data.objetoOriginal;
+
+
     }
   }
   remover(index: number) {
@@ -40,81 +45,94 @@ export class EditarProdutoskuDialogComponent {
     this.ref.close(this.produtoSku);
   }
   addAtributo() {
-
-  this.produtoSku.atributos.push(this.atributo);
+    this.produtoSku.atributos.push(this.atributo);
     this.atributo = new Atributo();
   }
   upLoad() {
     let input = document.createElement('input');
     input.type = 'file';
     input.multiple = true;
-    input.accept = "image/*";
+    input.accept = 'image/*';
 
     input.onchange = () => {
-        let arquivos: FileList | null = input.files;
-        if (!this.produtoSku.imagemsproduto) {
-          this.produtoSku.imagemsproduto = [];
+      let arquivos: FileList | null = input.files;
+      if (!this.produtoSku.imagens) {
+        this.produtoSku.imagens = [];
       }
-        if (arquivos) {
-            window.alert('Passou');
-            const formadata = new FormData();
+      if (arquivos) {
+        // window.alert('Passou');
+        const formadata = new FormData();
 
-            for (let i = 0; i < arquivos.length; i++) {
-                let arquivo = arquivos[i];
+        for (let i = 0; i < arquivos.length; i++) {
+          let imagemProduto = new Imagemproduto();
+          imagemProduto.nomeArquivo = arquivos[i].name;
+          imagemProduto.contentType = arquivos[i].type;
 
-                formadata.append('arquivos', arquivo);
+          this.produtoSku.imagens.push(imagemProduto);
+          formadata.append('arquivo', arquivos[i]);
+          console.log(
+            `Nome do arquivo: ${imagemProduto.nomeArquivo}, Tipo de conteúdo: ${imagemProduto}`
+          );
+          var reader = new FileReader();
+          reader.readAsDataURL(arquivos[i]);
+          reader.onload = (e: any) => {
+            this.uri = e.target.result;
+            this.urls.push(this.uri);
+          };
+          console.log(this.produtoSku);
+          console.log(formadata);
 
-                let imagemProduto = new Imagemproduto();
-                imagemProduto.nomeArquivo = arquivo.name;
-                imagemProduto.contentType = arquivo.type;
 
-                this.produtoSku.imagemsproduto.push(imagemProduto);
-
-                console.log(`Nome do arquivo: ${imagemProduto.nomeArquivo}, Tipo de conteúdo: ${imagemProduto.url}`);
-                var reader = new FileReader();
-                reader.readAsDataURL(arquivo);
-                reader.onload = (e: any) => {
-                    imagemProduto.url = e.target.result;
-
-            }
-
-            console.log(this.produtoSku);
-
-            // Agora você pode enviar formadata para o servidor usando um serviço HTTP
-            // Exemplo fictício:
-            // this.http.post('sua_url_de_upload', formadata).subscribe(response => {
-            //     console.log(response);
-            // });
         }
+        this.arquivoService.upload(formadata).subscribe((resposta) => {
+          console.log(resposta);
+
+          this.getbuscarfoto();
+        });
+      }
     };
-  }
     // Correção: use 'click()' em vez de 'Click()'
     input.click();
   }
+  getbuscarfoto() {
 
+    console.log(this.produtoSku.imagens);
+    if (this.produtoSku.imagemPrincipal.length > 0) {
+      for (let i = 0; i < this.urls.length; i++) {
+        this.uri = this.arquivoService.buscarfoto(
+          this.produtoSku.imagens[i].nomeArquivo
+        );
+        this.urls.push(this.uri);
+        console.log(this.urls)
+      }
+    } else {
+      ///  this.url = '/assets/no-image-icon.jpg';
+    }
+    return this.urls;
+  }
   previewImages(event: any) {
-    const inputImagens = document.getElementById("inputImagens");
+    const inputImagens = document.getElementById('inputImagens');
 
     // Receber o seletor para enviar o preview das imagens
-    const previewImagem = document.getElementById("previewImagem");
+    const previewImagem = document.getElementById('previewImagem');
 
     // Aguardar alteração no campo de imagens
-    inputImagens.addEventListener("change", function (e:any) {
+    inputImagens.addEventListener('change', function (e: any) {
+      // Limpar o seletor que recebe o preview das imagens
+      previewImagem.innerHTML = '';
 
-        // Limpar o seletor que recebe o preview das imagens
-        previewImagem.innerHTML = "";
+      // Percorrer a lista de arquivos selecionados
+      for (const arquivo of e.target.files) {
+        console.log(arquivo);
 
-        // Percorrer a lista de arquivos selecionados
-        for (const arquivo of e.target.files) {
-            console.log(arquivo);
+        // Criar a TAG <img>, no atributo src atribuir a imagem e no atributo alt o nome
+        const imagemHTML = `<img src="${URL.createObjectURL(arquivo)}" alt="${
+          arquivo.name
+        }" style="max-width: 200px; margin: 10px;">`;
 
-            // Criar a TAG <img>, no atributo src atribuir a imagem e no atributo alt o nome
-            const imagemHTML = `<img src="${URL.createObjectURL(arquivo)}" alt="${arquivo.name}" style="max-width: 200px; margin: 10px;">`;
-
-            // Enviar para o HTML a imagem, beforeend - adicionar a image no final
-            previewImagem.insertAdjacentHTML("beforeend", imagemHTML);
-        }
-
+        // Enviar para o HTML a imagem, beforeend - adicionar a image no final
+        previewImagem.insertAdjacentHTML('beforeend', imagemHTML);
+      }
     });
   }
   selectFiles(event: any): void {
@@ -122,18 +140,31 @@ export class EditarProdutoskuDialogComponent {
     this.progressInfos = [];
     this.selectedFiles = event.target.files;
 
-    this.previews = [];
-    if (this.selectedFiles && this.selectedFiles[0]) {
-      const numberOfFiles = this.selectedFiles.length;
-      for (let i = 0; i < numberOfFiles; i++) {
-        const reader = new FileReader();
+    if (!this.produtoSku.imagens) {
+      this.produtoSku.imagens = [];
+      this.previews = [];
+      if (this.selectedFiles && this.selectedFiles[0]) {
+        const numberOfFiles = this.selectedFiles.length;
+        const formadata = new FormData();
+        for (let i = 0; i < numberOfFiles; i++) {
+          let arquivo = this.selectedFiles[i];
+          formadata.append('arquivos', arquivo);
 
-        reader.onload = (e: any) => {
-          console.log(e.target.result);
-          this.previews.push(e.target.result);
-        };
+          let imagemProduto = new Imagemproduto();
+          imagemProduto.nomeArquivo = arquivo.name;
+          imagemProduto.contentType = arquivo.type;
+          imagemProduto.tamanho=arquivo.size;
 
-        reader.readAsDataURL(this.selectedFiles[i]);
+          this.produtoSku.imagens.push(imagemProduto);
+          const reader = new FileReader();
+
+          reader.onload = (e: any) => {
+            console.log(e.target.result);
+            this.previews.push(e.target.result);
+          };
+
+          reader.readAsDataURL(this.selectedFiles[i]);
+        }
       }
     }
   }

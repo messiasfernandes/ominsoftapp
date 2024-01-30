@@ -16,7 +16,7 @@ export class ProdutoSku {
   atributos: Atributo[]=[]
   precodeVenda: number
   valordeVenda: number
-  imagemsproduto:Imagemproduto[]=[]
+  imagens:Imagemproduto[]=[]
 
 }
 

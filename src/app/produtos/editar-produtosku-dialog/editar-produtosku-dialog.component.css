@@ -9,7 +9,7 @@
   overflow-x: auto;
   display: flex;
   align-items: center;
-  justify-content: center;
+ /* justify-content: center;*/
 
   border: 2px dashed currentcolor;
   cursor: pointer;
@@ -33,5 +33,11 @@
   align-items: center;
   justify-content: center;
   height: 100%;
+}
+.preview {
+  max-width: 180px;
+}
+.image-container {
+  padding-right: 10px; /* Adapte o valor conforme necessário para o espaçamento desejado */
 }
 

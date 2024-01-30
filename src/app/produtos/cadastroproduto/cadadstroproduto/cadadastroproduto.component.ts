@@ -105,7 +105,7 @@ export class CadadastroprodutoComponent implements OnInit {
   }
 
   carregarProduto(codigoproduto: number) {
-    console.log('inicou');
+
     this.produtoService.detalhar(codigoproduto).subscribe((data) => {
       console.log(data);
       if (data.subgrupo != null) {
@@ -118,6 +118,7 @@ export class CadadastroprodutoComponent implements OnInit {
       }
       this.tempDataTable?.initRowEdit({});
       this.produto = data;
+      console.log(this.produto)
       this.getbuscarfoto(this.produto.imagemPrincipal);
     });
   }
