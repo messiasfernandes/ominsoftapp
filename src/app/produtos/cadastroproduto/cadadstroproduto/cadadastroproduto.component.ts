@@ -206,7 +206,8 @@ export class CadadastroprodutoComponent implements OnInit {
 
     this.produto.proutos_skus[indice] = editedProdutoSku;
 
-    console.log(this.produto.proutos_skus[indice]);
+    console.log(this.produto);
+
   }
 
   async showSubgrupo() {

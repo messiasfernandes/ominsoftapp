@@ -24,6 +24,7 @@ export class EditarProdutoskuDialogComponent {
   uri: string = '';
   previews: string[] = [];
   imageInfos?: Observable<any>;
+   imagemProduto = new Imagemproduto();
   constructor(
     private messageService: MessageService,
     public ref: DynamicDialogRef,
@@ -34,7 +35,9 @@ export class EditarProdutoskuDialogComponent {
   ) {
     if (this.config.data && this.config.data.objetoOriginal != null) {
       this.produtoSku = this.config.data.objetoOriginal;
-
+      if(this.produtoSku.imagens.length>0){
+        this.getbuscarfoto()
+      }
 
     }
   }
@@ -64,14 +67,14 @@ export class EditarProdutoskuDialogComponent {
         const formadata = new FormData();
 
         for (let i = 0; i < arquivos.length; i++) {
-          let imagemProduto = new Imagemproduto();
-          imagemProduto.nomeArquivo = arquivos[i].name;
-          imagemProduto.contentType = arquivos[i].type;
 
-          this.produtoSku.imagens.push(imagemProduto);
+          this.imagemProduto.nomeArquivo = arquivos[i].name;
+         this. imagemProduto.contentType = arquivos[i].type;
+     this.   imagemProduto.tamanho= arquivos[i].size;
+          this.produtoSku.imagens.push(this.imagemProduto);
           formadata.append('arquivo', arquivos[i]);
           console.log(
-            `Nome do arquivo: ${imagemProduto.nomeArquivo}, Tipo de conteúdo: ${imagemProduto}`
+            `Nome do arquivo: ${this.imagemProduto.nomeArquivo}, Tipo de conteúdo: ${this.imagemProduto}`
           );
           var reader = new FileReader();
           reader.readAsDataURL(arquivos[i]);
@@ -82,12 +85,12 @@ export class EditarProdutoskuDialogComponent {
           console.log(this.produtoSku);
           console.log(formadata);
 
-
+       this.imagemProduto = new Imagemproduto();
         }
         this.arquivoService.upload(formadata).subscribe((resposta) => {
           console.log(resposta);
 
-          this.getbuscarfoto();
+      //    this.getbuscarfoto();
         });
       }
     };
@@ -95,10 +98,10 @@ export class EditarProdutoskuDialogComponent {
     input.click();
   }
   getbuscarfoto() {
-
+window.alert("paous")
     console.log(this.produtoSku.imagens);
-    if (this.produtoSku.imagemPrincipal.length > 0) {
-      for (let i = 0; i < this.urls.length; i++) {
+    if (this.produtoSku.imagens.length > 0) {
+      for (let i = 0; i < this.produtoSku.imagens.length; i++) {
         this.uri = this.arquivoService.buscarfoto(
           this.produtoSku.imagens[i].nomeArquivo
         );
