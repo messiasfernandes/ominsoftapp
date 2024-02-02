@@ -24,7 +24,7 @@ export class EditarProdutoskuDialogComponent {
   uri: string = '';
   previews: string[] = [];
   imageInfos?: Observable<any>;
-   imagemProduto = new Imagemproduto();
+  imagemProduto = new Imagemproduto();
   constructor(
     private messageService: MessageService,
     public ref: DynamicDialogRef,
@@ -35,10 +35,9 @@ export class EditarProdutoskuDialogComponent {
   ) {
     if (this.config.data && this.config.data.objetoOriginal != null) {
       this.produtoSku = this.config.data.objetoOriginal;
-      if(this.produtoSku.imagens.length>0){
-        this.getbuscarfoto()
+      if (this.produtoSku.imagens.length > 0) {
+        this.getbuscarfoto();
       }
-
     }
   }
   remover(index: number) {
@@ -67,12 +66,24 @@ export class EditarProdutoskuDialogComponent {
         const formadata = new FormData();
 
         for (let i = 0; i < arquivos.length; i++) {
-
           this.imagemProduto.nomeArquivo = arquivos[i].name;
-         this. imagemProduto.contentType = arquivos[i].type;
-     this.   imagemProduto.tamanho= arquivos[i].size;
-          this.produtoSku.imagens.push(this.imagemProduto);
+          this.imagemProduto.contentType = arquivos[i].type;
+          this.imagemProduto.tamanho = arquivos[i].size;
+
           formadata.append('arquivo', arquivos[i]);
+          if (this.urls.length> 0) {
+            let i = 0;
+            while (i < this.produtoSku.imagens.length) {
+                this.arquivoService.removerArquivo(this.produtoSku.imagens[i].nomeArquivo);
+
+                // Remover o elemento atual do array produtoSku.imagens
+                this.produtoSku.imagens.splice(i, 1);
+
+                // Limpar o array urls
+                this.urls.splice(i,1);
+            }
+        }
+        this.produtoSku.imagens.push(this.imagemProduto);
           console.log(
             `Nome do arquivo: ${this.imagemProduto.nomeArquivo}, Tipo de conteúdo: ${this.imagemProduto}`
           );
@@ -85,12 +96,12 @@ export class EditarProdutoskuDialogComponent {
           console.log(this.produtoSku);
           console.log(formadata);
 
-       this.imagemProduto = new Imagemproduto();
+          this.imagemProduto = new Imagemproduto();
         }
         this.arquivoService.upload(formadata).subscribe((resposta) => {
           console.log(resposta);
 
-      //    this.getbuscarfoto();
+          //    this.getbuscarfoto();
         });
       }
     };
@@ -98,7 +109,6 @@ export class EditarProdutoskuDialogComponent {
     input.click();
   }
   getbuscarfoto() {
-window.alert("paous")
     console.log(this.produtoSku.imagens);
     if (this.produtoSku.imagens.length > 0) {
       for (let i = 0; i < this.produtoSku.imagens.length; i++) {
@@ -106,7 +116,7 @@ window.alert("paous")
           this.produtoSku.imagens[i].nomeArquivo
         );
         this.urls.push(this.uri);
-        console.log(this.urls)
+        console.log(this.urls);
       }
     } else {
       ///  this.url = '/assets/no-image-icon.jpg';
@@ -156,7 +166,7 @@ window.alert("paous")
           let imagemProduto = new Imagemproduto();
           imagemProduto.nomeArquivo = arquivo.name;
           imagemProduto.contentType = arquivo.type;
-          imagemProduto.tamanho=arquivo.size;
+          imagemProduto.tamanho = arquivo.size;
 
           this.produtoSku.imagens.push(imagemProduto);
           const reader = new FileReader();

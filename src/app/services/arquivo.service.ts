@@ -26,7 +26,7 @@ export class ArquivoService {
   }
 
   removerArquivo(nomeArquivo: string){
-    window.alert("pasou"+ nomeArquivo)
+
     return this.http
     .delete(`${config.baseurl}arquivos/fotos/${nomeArquivo}`,)
     .subscribe(
