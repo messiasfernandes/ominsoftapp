@@ -123,62 +123,6 @@ export class EditarProdutoskuDialogComponent {
     }
     return this.urls;
   }
-  previewImages(event: any) {
-    const inputImagens = document.getElementById('inputImagens');
 
-    // Receber o seletor para enviar o preview das imagens
-    const previewImagem = document.getElementById('previewImagem');
 
-    // Aguardar alteração no campo de imagens
-    inputImagens.addEventListener('change', function (e: any) {
-      // Limpar o seletor que recebe o preview das imagens
-      previewImagem.innerHTML = '';
-
-      // Percorrer a lista de arquivos selecionados
-      for (const arquivo of e.target.files) {
-        console.log(arquivo);
-
-        // Criar a TAG <img>, no atributo src atribuir a imagem e no atributo alt o nome
-        const imagemHTML = `<img src="${URL.createObjectURL(arquivo)}" alt="${
-          arquivo.name
-        }" style="max-width: 200px; margin: 10px;">`;
-
-        // Enviar para o HTML a imagem, beforeend - adicionar a image no final
-        previewImagem.insertAdjacentHTML('beforeend', imagemHTML);
-      }
-    });
-  }
-  selectFiles(event: any): void {
-    this.message = [];
-    this.progressInfos = [];
-    this.selectedFiles = event.target.files;
-
-    if (!this.produtoSku.imagens) {
-      this.produtoSku.imagens = [];
-      this.previews = [];
-      if (this.selectedFiles && this.selectedFiles[0]) {
-        const numberOfFiles = this.selectedFiles.length;
-        const formadata = new FormData();
-        for (let i = 0; i < numberOfFiles; i++) {
-          let arquivo = this.selectedFiles[i];
-          formadata.append('arquivos', arquivo);
-
-          let imagemProduto = new Imagemproduto();
-          imagemProduto.nomeArquivo = arquivo.name;
-          imagemProduto.contentType = arquivo.type;
-          imagemProduto.tamanho = arquivo.size;
-
-          this.produtoSku.imagens.push(imagemProduto);
-          const reader = new FileReader();
-
-          reader.onload = (e: any) => {
-            console.log(e.target.result);
-            this.previews.push(e.target.result);
-          };
-
-          reader.readAsDataURL(this.selectedFiles[i]);
-        }
-      }
-    }
-  }
 }
