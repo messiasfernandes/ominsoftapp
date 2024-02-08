@@ -120,7 +120,11 @@ private ref: DynamicDialogRef;
        },
        modal: true,
        header: 'Editar Produto',
-       width: '80%'
+       width: '85%',
+
+
+
+
      });
 
     this. ref.onClose.subscribe((objetoEditado:ProdutoSku) => {

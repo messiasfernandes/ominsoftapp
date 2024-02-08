@@ -5,59 +5,75 @@
       <p-tabView>
         <p-tabPanel header="Produto">
           <form>
+            <br>
             <div class="grid nested-grid">
+              <div class="col-6 md:col-6 lg:col-6 p-fluid">
+                <div class="grid">
 
-              <div class="col-6 col-offset-3">
-                <button label="upLoad" pButton pRipple type="button" (click)="upLoad()"
-                  class="p-button-outlined p-button-lg p-button-success"></button>
-              </div>
-            </div>
-            <div class="col-6 col-offset-3">
-
-
-
-              <div class="h-full  picture">
-
-
-                <div *ngFor="let url of urls" class="image-container">
-
-                  <p-image img [src]="url" [preview]="true" class="preview picture__img" width="175px" height="250px" />
-
-
-
+                  <div class="col-12 md:col-6 lg:col-4 p-fluid">
+                    <span class="p-float-label">
+                      <p-inputNumber inputId="preco_venda" currency="BRL" mode="currency" name="precodeVenda"
+                        locale="pt-Br" [(ngModel)]="produtoSku.precodeVenda" [minFractionDigits]="2"></p-inputNumber>
+                      <label for="preco_venda"> Preço de Venda</label>
+                    </span>
+                  </div>
+                  <div class=" col-12 md:col-6 lg:col-4 p-fluid">
+                    <p-inputNumber [(ngModel)]="produtoSku.qtdePorSku" [showButtons]="true" name="qtdePorSku"
+                      spinnerMode="horizontal" [step]="1" [min]="0" [max]="10000" decrementButtonClass="p-button-danger"
+                      incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus"
+                      decrementButtonIcon="pi pi-minus"></p-inputNumber>
+                  </div>
+                  <div class=" col-12 md:col-6 lg:col-4 p-fluid ">
+                    <button label="upLoad" pButton pRipple icon="fa-solid fa-upload" type="button" (click)="upLoad()"
+                      class="p-button-outlined p-button-lg p-button-success"></button>
+                  </div>
+                  <div class=" col-12 md:col-6 lg:col-4 p-fluid ">
+                    <span class="p-float-label">
+                      <p-inputNumber inputId="peso"
+                        locale="pt-Br" [minFractionDigits]="3"></p-inputNumber>
+                      <label for="peso"> Peso</label>
+                    </span>
+                  </div>
+                  <div class=" col-12 md:col-6 lg:col-4 p-fluid ">
+                    <span class="p-float-label">
+                      <p-inputNumber inputId="altura" name="altura"
+                        locale="pt-Br" [minFractionDigits]="3"></p-inputNumber>
+                      <label for="altura"> Altura</label>
+                    </span>
+                  </div>
+                  <div class=" col-12 md:col-6 lg:col-4 p-fluid ">
+                    <span class="p-float-label">
+                      <p-inputNumber inputId="largura"
+                        locale="pt-Br" [minFractionDigits]="3"></p-inputNumber>
+                      <label for="largura"> Largura</label>
+                    </span>
+                  </div>
                 </div>
 
 
               </div>
-            </div>
 
-            <br>
-            <div class="grid">
-              <div class="col-12 md:col-6 lg:col-6 p-fluid">
-                <span class="p-float-label">
-                  <p-inputNumber inputId="preco_venda" currency="BRL" mode="currency" name="precodeVenda" locale="pt-Br"
-                    [(ngModel)]="produtoSku.precodeVenda" [minFractionDigits]="2"></p-inputNumber>
-                  <label for="preco_venda"> Preço de Venda</label>
-                </span>
-              </div>
-              <div class="col-12 md:col-6 lg:col-3 p-fluid">
-                <span class="p-float-label">
-                  <input type="text" id="marca" pInputText name="sku" [(ngModel)]="produtoSku.sku" readonly="true" />
+              <div class=" col-6 md:col-6 lg:col-6 p-fluid ">
 
-                  <label for="marca">sku</label>
-                </span>
+                <div class="h-full picture">
+
+                  <div *ngFor="let url of urls" class="image-container ">
+                    <p-image img [src]="url" [preview]="true" class="preview picture__img"
+                     />
+                  </div>
+
+
+                </div>
+
               </div>
-              <div class=" col-12 md:col-6 lg:col-3 p-fluid">
-                <p-inputNumber [(ngModel)]="produtoSku.qtdePorSku" [showButtons]="true" name="qtdePorSku"
-                  spinnerMode="horizontal" [step]="1" [min]="0" [max]="10000" decrementButtonClass="p-button-danger"
-                  incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus"
-                  decrementButtonIcon="pi pi-minus"></p-inputNumber>
-              </div>
+              <br>
               <div class="col-6 md:col-6 lg:col-2 p-fluid">
                 <button pButton pRipple type="button" icon="pi pi-sign-in" label="Selecionar"
                   (click)="selecionarProduto()" class="p-button-outlined p-button-lg p-button-primary"></button>
               </div>
             </div>
+            <br>
+
           </form>
         </p-tabPanel>
         <p-tabPanel header="Atributos">
